@@ -3,15 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks_app/providers/global_providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AuthService extends ChangeNotifier {
+class AuthServices extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth;
   final Reader _read;
-  AuthService(this._firebaseAuth, this._read);
+  AuthServices(this._firebaseAuth, this._read);
 
   String? _error;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
   String? get error => _error;
+
+  User? get user => _firebaseAuth.currentUser;
 
   Future<void> loginAnon() async {
     _read(appLoadingStateProvider).state = true;
