@@ -21,10 +21,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Hooks App',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
-        scaffoldBackgroundColor: Colors.grey.shade200,
+        scaffoldBackgroundColor: Colors.grey.shade300,
         appBarTheme: const AppBarTheme(
           centerTitle: true,
         ),
+        cardColor: Colors.white,
+        cardTheme: CardTheme(
+            margin: const EdgeInsets.all(0), clipBehavior: Clip.antiAlias),
         buttonTheme: const ButtonThemeData(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
         elevatedButtonTheme: ElevatedButtonThemeData(style: _buttonStyle),
