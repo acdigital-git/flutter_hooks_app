@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_hooks_app/providers/auth_provider.dart';
+import 'package:flutter_hooks_app/providers/auth_providers.dart';
 import 'package:flutter_hooks_app/src/views/auth/auth_view.dart';
 import 'package:flutter_hooks_app/src/views/home/home_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
