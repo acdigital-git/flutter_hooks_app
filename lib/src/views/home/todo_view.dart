@@ -17,7 +17,7 @@ class TodoView extends HookWidget {
         title: Text(title),
         actions: [
           IconButton(
-              icon: Icon(Icons.logout),
+              icon: const Icon(Icons.logout),
               onPressed: context.read(authServiceProvider).logout)
         ],
       ),
@@ -37,16 +37,23 @@ class TodoView extends HookWidget {
                   ? const Text('No data found...')
                   : ListView.separated(
                       shrinkWrap: true,
-                      itemBuilder: (context, index) => Card(
-                        child: CheckboxListTile(
-                            key: UniqueKey(),
-                            value: value[index].completed,
-                            title: Text(value[index].content),
-                            onChanged: (newValue) => context
-                                .read(firestoreServiceProvider)
-                                .toggleCompleted(
-                                    todoId: value[index].id,
-                                    newValue: newValue!)),
+                      itemBuilder: (context, index) => Dismissible(
+                        key: UniqueKey(),
+                        background: Container(color: Colors.redAccent),
+                        onDismissed: (direction) => context
+                            .read(firestoreServiceProvider)
+                            .remove(todoId: value[index].id),
+                        child: Card(
+                          child: CheckboxListTile(
+                              key: UniqueKey(),
+                              value: value[index].completed,
+                              title: Text(value[index].content),
+                              onChanged: (newValue) => context
+                                  .read(firestoreServiceProvider)
+                                  .toggleCompleted(
+                                      todoId: value[index].id,
+                                      newValue: newValue!)),
+                        ),
                       ),
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 16.0),

@@ -23,7 +23,7 @@ class FirestoreServices extends ChangeNotifier {
           snapshot.docs.map((doc) => Todo.fromJson(doc.data())).toList());
 
   // create todo
-  Future<void> create(Todo todo) async {
+  Future<void> create({required Todo todo}) async {
     _read(appLoadingStateProvider).state = true;
     try {
       await _db.collection('todos').add(todo.toMap());
@@ -52,6 +52,15 @@ class FirestoreServices extends ChangeNotifier {
   }) async {
     try {
       await _db.collection('todos').doc(todoId).update({'completed': newValue});
+    } catch (e) {
+      error = e.toString();
+    }
+  }
+
+  // remove todo
+  Future<void> remove({required String todoId}) async {
+    try {
+      _db.collection('todos').doc(todoId).delete();
     } catch (e) {
       error = e.toString();
     }
