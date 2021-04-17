@@ -1,30 +1,43 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
-class AuthService {
+class AuthService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth;
   AuthService(this._firebaseAuth);
 
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  String? _error;
 
-  Future<String> login(
-      {required String email, required String password}) async {
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  String? get error => _error;
+
+  Future<void> loginAnon() async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return 'Successfully logged in';
+      await _firebaseAuth.signInAnonymously();
     } on FirebaseAuthException catch (e) {
-      return e.message!;
+      _error = e.message;
+      notifyListeners();
     }
   }
 
-  Future<String> register(
+  Future<void> login({required String email, required String password}) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email.trim(), password: password.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      _error = e.message;
+      notifyListeners();
+    }
+  }
+
+  Future<void> register(
       {required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      return 'Successfully registered';
+          email: email.trim(), password: password.trim());
     } on FirebaseAuthException catch (e) {
-      return e.message!;
+      _error = e.message;
+      notifyListeners();
     }
   }
 

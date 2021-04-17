@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks_app/src/routes/routes.dart';
-import 'package:flutter_hooks_app/src/views/home_view.dart';
+import 'package:flutter_hooks_app/src/views/auth_wrapper.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       // home
       case Routes.root:
-        return MaterialPageRoute(
-            builder: (_) => HomeView(title: 'Flutter Hooks App'));
+        return MaterialPageRoute(builder: (_) => AuthWrapper());
       default:
         return _errorRoute();
     }

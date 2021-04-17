@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks_app/src/routes/route_generator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+const _buttonStyle =
+    ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -17,11 +20,22 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Hooks App',
       theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          scaffoldBackgroundColor: Colors.grey.shade200,
-          appBarTheme: AppBarTheme(
-            centerTitle: true,
-          )),
+        primarySwatch: Colors.indigo,
+        scaffoldBackgroundColor: Colors.grey.shade200,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+        ),
+        buttonTheme: const ButtonThemeData(
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
+        elevatedButtonTheme: ElevatedButtonThemeData(style: _buttonStyle),
+        inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.white,
+            isDense: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6.0),
+            )),
+      ),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: '/',
     );
