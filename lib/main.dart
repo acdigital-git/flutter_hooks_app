@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/src/views/home_view.dart';
+import 'package:flutter_hooks_app/src/routes/route_generator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
@@ -15,10 +15,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Hooks App',
       theme: ThemeData(
           primarySwatch: Colors.indigo,
+          scaffoldBackgroundColor: Colors.grey.shade200,
           appBarTheme: AppBarTheme(
             centerTitle: true,
           )),
-      home: HomeView(title: 'Flutter Hooks App'),
+      onGenerateRoute: RouteGenerator.generateRoute,
+      initialRoute: '/',
     );
   }
 }
