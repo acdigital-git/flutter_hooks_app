@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_hooks_app/providers/global_providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth;
-  AuthService(this._firebaseAuth);
+  final Reader _read;
+  AuthService(this._firebaseAuth, this._read);
 
   String? _error;
 
@@ -11,15 +14,18 @@ class AuthService extends ChangeNotifier {
   String? get error => _error;
 
   Future<void> loginAnon() async {
+    _read(appLoadingStateProvider).state = true;
     try {
       await _firebaseAuth.signInAnonymously();
     } on FirebaseAuthException catch (e) {
       _error = e.message;
       notifyListeners();
     }
+    _read(appLoadingStateProvider).state = false;
   }
 
   Future<void> login({required String email, required String password}) async {
+    _read(appLoadingStateProvider).state = true;
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email.trim(), password: password.trim());
@@ -28,6 +34,7 @@ class AuthService extends ChangeNotifier {
       _error = e.message;
       notifyListeners();
     }
+    _read(appLoadingStateProvider).state = false;
   }
 
   Future<void> register(
