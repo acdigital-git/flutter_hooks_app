@@ -6,11 +6,11 @@ final pwVisibilityHelper = StateNotifierProvider<PasswordToggleNotifier, bool>(
 
 final pwValidator =
     StateNotifierProvider.autoDispose<FormValidationNotifier, String?>(
-        (ref) => FormValidationNotifier(error: 'Please enter your password'));
+        (ref) => FormValidationNotifier(error: 'Password is required'));
 
 final emailValidator =
     StateNotifierProvider.autoDispose<FormValidationNotifier, String?>(
-        (ref) => FormValidationNotifier(error: 'Please enter a valid email'));
+        (ref) => FormValidationNotifier(error: 'Email is required'));
 
 class PasswordToggleNotifier extends StateNotifier<bool> {
   // initalized to true so text is obscured
