@@ -22,23 +22,12 @@ class FirestoreServices extends ChangeNotifier {
       _db.collection('todos').snapshots().map((snapshot) =>
           snapshot.docs.map((doc) => Todo.fromJson(doc.data())).toList());
 
-  // create todo
-  Future<void> create({required Todo todo}) async {
-    _read(appLoadingStateProvider).state = true;
-    try {
-      await _db.collection('todos').add(todo.toMap());
-    } catch (e) {
-      error = e.toString();
-    }
-    _read(appLoadingStateProvider).state = false;
-  }
-
   // upsert (either insert or update the entry)
   Future<void> upsert({required Todo todo}) async {
     var options = SetOptions(merge: true);
     _read(appLoadingStateProvider).state = true;
     try {
-      await _db.collection('todos').doc(todo.id).set(todo.toMap(), options);
+      await _db.collection('todos').doc(todo.uid).set(todo.toMap(), options);
     } catch (e) {
       error = e.toString();
     }

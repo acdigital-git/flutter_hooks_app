@@ -12,6 +12,10 @@ final emailValidator =
     StateNotifierProvider.autoDispose<FormValidationNotifier, String?>(
         (ref) => FormValidationNotifier(error: 'Email is required'));
 
+final contentValidator =
+    StateNotifierProvider.autoDispose<FormValidationNotifier, String?>(
+        (ref) => FormValidationNotifier(error: 'Content is required'));
+
 class PasswordToggleNotifier extends StateNotifier<bool> {
   // initalized to true so text is obscured
   PasswordToggleNotifier({bool? initValue}) : super(initValue ?? true);
@@ -20,8 +24,7 @@ class PasswordToggleNotifier extends StateNotifier<bool> {
 }
 
 class FormValidationNotifier extends StateNotifier<String?> {
-  FormValidationNotifier({String? error})
-      : super(error ?? 'Please enter some text');
+  FormValidationNotifier({String? error}) : super(error ?? null);
 
   void checkEmailValid(String? value) {
     if (value == null || value.isEmpty) {
@@ -38,6 +41,16 @@ class FormValidationNotifier extends StateNotifier<String?> {
       state = 'Please enter some text';
     } else if (value.length < 8) {
       state = 'Password is too short';
+    } else {
+      state = null;
+    }
+  }
+
+  void checkTodoContent(String? value) {
+    if (value == null || value.isEmpty) {
+      state = 'Please enter some text';
+    } else if (value.length < 8) {
+      state = 'todo is too short';
     } else {
       state = null;
     }
