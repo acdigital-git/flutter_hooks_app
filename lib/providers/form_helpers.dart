@@ -1,0 +1,45 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final pwVisibilityHelper = StateNotifierProvider<PasswordToggleNotifier, bool>(
+    (ref) => PasswordToggleNotifier());
+
+final pwValidator =
+    StateNotifierProvider.autoDispose<FormValidationNotifier, String?>(
+        (ref) => FormValidationNotifier(error: 'Please enter your password'));
+
+final emailValidator =
+    StateNotifierProvider.autoDispose<FormValidationNotifier, String?>(
+        (ref) => FormValidationNotifier(error: 'Please enter a valid email'));
+
+class PasswordToggleNotifier extends StateNotifier<bool> {
+  // initalized to true so text is obscured
+  PasswordToggleNotifier({bool? initValue}) : super(initValue ?? true);
+
+  void toggle() => state = !state;
+}
+
+class FormValidationNotifier extends StateNotifier<String?> {
+  FormValidationNotifier({String? error})
+      : super(error ?? 'Please enter some text');
+
+  void checkEmailValid(String? value) {
+    if (value == null || value.isEmpty) {
+      state = 'Please enter some text';
+    } else if (!EmailValidator.validate(value)) {
+      state = 'Invalid email format';
+    } else {
+      state = null;
+    }
+  }
+
+  void checkPwValid(String? value) {
+    if (value == null || value.isEmpty) {
+      state = 'Please enter some text';
+    } else if (value.length < 8) {
+      state = 'Password is too short';
+    } else {
+      state = null;
+    }
+  }
+}
