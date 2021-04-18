@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           centerTitle: true,
         ),
+        iconTheme: IconThemeData(color: Colors.indigo),
         cardColor: Colors.white,
         cardTheme: CardTheme(
             margin: const EdgeInsets.all(0), clipBehavior: Clip.antiAlias),

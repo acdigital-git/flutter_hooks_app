@@ -10,7 +10,7 @@ class PasswordField extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _isObscured = useProvider(pwVisibilityHelper);
-    final _error = useProvider(pwValidator);
+    final _validationItem = useProvider(pwValidator);
     return TextField(
         controller: controller,
         onChanged: (value) =>
@@ -19,7 +19,7 @@ class PasswordField extends HookWidget {
         maxLength: 16,
         decoration: InputDecoration(
             hintText: 'password (8 characters)',
-            errorText: _error,
+            errorText: _validationItem.error,
             suffixIcon: GestureDetector(
                 onTap: context.read(pwVisibilityHelper.notifier).toggle,
                 child: _isObscured

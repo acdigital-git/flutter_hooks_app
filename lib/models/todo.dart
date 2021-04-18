@@ -1,17 +1,17 @@
 class Todo {
   const Todo({
-    required this.id,
+    required this.uid,
     required this.content,
     this.completed = false,
   });
 
-  final String id;
+  final String uid;
   final String content;
   final bool completed;
 
   factory Todo.fromJson(Map<String, dynamic> json) {
     return Todo(
-      id: json['id'],
+      uid: json['uid'],
       content: json['content'],
       completed: json['completed'],
     );
@@ -19,7 +19,7 @@ class Todo {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'uid': uid,
       'content': content,
       'completed': completed,
     };
