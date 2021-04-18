@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final appLoadingStateProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 final appErrorStateNotifier =
-    StateNotifierProvider.autoDispose<AppErrorStateNotifier, ResultItem?>(
+    StateNotifierProvider<AppErrorStateNotifier, ResultItem?>(
         (ref) => AppErrorStateNotifier());
 
 class AppErrorStateNotifier extends StateNotifier<ResultItem?> {
@@ -14,5 +14,7 @@ class AppErrorStateNotifier extends StateNotifier<ResultItem?> {
       state = ResultItem(isError: false, message: _message);
 
   void errorMessage(String _message) =>
-      state = ResultItem(isError: false, message: _message);
+      state = ResultItem(isError: true, message: _message);
+
+  void reset() => state = null;
 }

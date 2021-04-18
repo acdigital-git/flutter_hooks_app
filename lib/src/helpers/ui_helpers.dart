@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks_app/models/result_item.dart';
 
 class UiHelpers {
-  static showSnackBar(
-          {required BuildContext context, required ResultItem item}) =>
+  static Future<void> showSnackBar(
+          {required BuildContext context, required ResultItem item}) async =>
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(item.message!),
           action: SnackBarAction(

@@ -61,7 +61,9 @@ class BaseWidget extends HookWidget {
             provider: appErrorStateNotifier,
             onChange: (context, item) {
               if (item != null && item.message != null)
-                UiHelpers.showSnackBar(context: context, item: item);
+                UiHelpers.showSnackBar(context: context, item: item).then(
+                    (value) =>
+                        context.read(appErrorStateNotifier.notifier).reset());
             },
             child: ProviderListener<StateController<bool>>(
                 provider: appLoadingStateProvider,
