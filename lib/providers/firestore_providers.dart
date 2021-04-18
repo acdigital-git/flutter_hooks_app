@@ -11,12 +11,12 @@ final todosFilterProvider = StateProvider<Filters>((ref) => Filters.all);
 final firestoreProvider =
     Provider<FirebaseFirestore>((ref) => FirebaseFirestore.instance);
 
-final firestoreServiceProvider = ChangeNotifierProvider<FirestoreServices>(
-    (ref) => FirestoreServices(ref.watch(firestoreProvider), ref.read,
-        ref.watch(todosFilterProvider).state));
-
-final firestoreErrorProvider =
-    StateProvider<String?>((ref) => ref.watch(firestoreServiceProvider).error);
+final firestoreServiceProvider =
+    ChangeNotifierProvider<FirestoreServices>((ref) => FirestoreServices(
+          db: ref.watch(firestoreProvider),
+          read: ref.read,
+          filter: ref.watch(todosFilterProvider).state,
+        ));
 
 final todosProvider = StreamProvider<List<Todo>>(
     (ref) => ref.watch(firestoreServiceProvider).todos);

@@ -13,63 +13,52 @@ class TodoView extends HookWidget {
   Widget build(BuildContext context) {
     final _todos = useProvider(todosProvider);
     return BaseWidget(
-      appBar: AppBar(
-        title: Text(title),
-        actions: [
+        appBar: AppBar(title: Text(title), actions: [
           IconButton(
               icon: const Icon(Icons.logout),
               onPressed: context.read(authServiceProvider).logout)
-        ],
-      ),
-      child: Column(
-        children: [
+        ]),
+        child: Column(children: [
           Container(
               padding: const EdgeInsets.fromLTRB(16, 16, 4, 0),
               child: const TodoViewHeader()),
           _todos.when(
-            data: (value) => value.isEmpty
-                ? const Text('No data found...')
-                : ListView.separated(
-                    padding: const EdgeInsets.all(16.0),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => DismissibleCard(
-                      callBack: (direction) => context
-                          .read(firestoreServiceProvider)
-                          .remove(todoId: value[index].uid),
-                      content: GestureDetector(
-                        onLongPress: () => Navigator.of(context)
-                            .pushNamed('/edit_todo', arguments: value[index]),
-                        child: CheckboxListTile(
-                            key: UniqueKey(),
-                            value: value[index].completed,
-                            title: Text(value[index].content),
-                            onChanged: (newValue) => context
-                                .read(firestoreServiceProvider)
-                                .toggleCompleted(
-                                    todoId: value[index].uid,
-                                    newValue: newValue!)),
-                      ),
-                    ),
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 16.0),
-                    itemCount: value.length,
-                  ),
-            loading: () => Container(),
-            error: (error, stackTrace) => const Center(
-              child: const Text('Error with the web service'),
-            ),
-          )
-        ],
-      ),
-      fab: Directionality(
-        textDirection: TextDirection.rtl,
-        child: FloatingActionButton.extended(
-          onPressed: () => Navigator.of(context).pushNamed('/edit_todo'),
-          icon: const Icon(Icons.playlist_add_rounded),
-          label: const Text('New Todo'),
-        ),
-      ),
-    );
+              data: (value) => value.isEmpty
+                  ? Container(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: const Text('No todos found...'))
+                  : ListView.separated(
+                      padding: const EdgeInsets.all(16.0),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => DismissibleCard(
+                          callBack: (direction) => context
+                              .read(firestoreServiceProvider)
+                              .remove(todoId: value[index].uid),
+                          content: GestureDetector(
+                              onLongPress: () => Navigator.of(context)
+                                  .pushNamed('/edit_todo',
+                                      arguments: value[index]),
+                              child: CheckboxListTile(
+                                  key: UniqueKey(),
+                                  value: value[index].completed,
+                                  title: Text(value[index].content),
+                                  onChanged: (newValue) => context
+                                      .read(firestoreServiceProvider)
+                                      .toggleCompleted(todoId: value[index].uid, newValue: newValue!)))),
+                      separatorBuilder: (context, index) => const SizedBox(height: 16.0),
+                      itemCount: value.length),
+              loading: () => Container(),
+              error: (error, stackTrace) => const Center(
+                    child: const Text('Error with the web service'),
+                  ))
+        ]),
+        fab: Directionality(
+            textDirection: TextDirection.rtl,
+            child: FloatingActionButton.extended(
+              onPressed: () => Navigator.of(context).pushNamed('/edit_todo'),
+              icon: const Icon(Icons.playlist_add_rounded),
+              label: const Text('New Todo'),
+            )));
   }
 }
 

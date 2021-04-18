@@ -21,6 +21,7 @@ class TodoFormView extends HookWidget {
 
     void _saveForm() {
       context.read(firestoreServiceProvider).upsert(
+          isUpdate: _isUpdate,
           todo: Todo(
               uid: item?.uid ?? _uuid.v1(),
               content: _content.text.trim(),
@@ -31,34 +32,26 @@ class TodoFormView extends HookWidget {
     return BaseWidget(
       appBar: AppBar(
           title: _isUpdate ? const Text('Edit todo') : const Text('New todo')),
-      child: ProviderListener<StateController<String?>>(
-        provider: firestoreErrorProvider,
-        onChange: (context, value) {
-          if (value.state != null)
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(value.state!)));
-        },
-        child: Column(children: [
-          // header
-          TodoEditHeader(completed: _completed),
-          // form
-          ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(16.0),
-              children: [
-                // content field
-                ContentField(controller: _content),
-                const SizedBox(height: 24.0),
-                // Add or Save
-                ElevatedButton.icon(
-                    onPressed: _isValid ? _saveForm : null,
-                    icon: const Icon(Icons.playlist_add_rounded),
-                    label: _isUpdate
-                        ? const Text('Edit todo')
-                        : const Text('Create todo'))
-              ])
-        ]),
-      ),
+      child: Column(children: [
+        // header
+        TodoEditHeader(completed: _completed),
+        // form
+        ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(16.0),
+            children: [
+              // content field
+              ContentField(controller: _content),
+              const SizedBox(height: 24.0),
+              // Add or Save
+              ElevatedButton.icon(
+                  onPressed: _isValid ? _saveForm : null,
+                  icon: const Icon(Icons.playlist_add_rounded),
+                  label: _isUpdate
+                      ? const Text('Edit todo')
+                      : const Text('Create todo'))
+            ])
+      ]),
     );
   }
 }

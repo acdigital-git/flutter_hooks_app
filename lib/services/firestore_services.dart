@@ -6,24 +6,17 @@ import 'package:flutter_hooks_app/providers/global_providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FirestoreServices extends ChangeNotifier {
-  final FirebaseFirestore _db;
-  final Reader _read;
-  final Filters _filter;
-  FirestoreServices(this._db, this._read, this._filter);
-
-  String? _error;
-
-  String? get error => _error;
-  set error(String? value) {
-    _error = value;
-    notifyListeners();
-  }
+  final FirebaseFirestore db;
+  final Reader read;
+  final Filters filter;
+  FirestoreServices(
+      {required this.db, required this.read, required this.filter});
 
   // fetch filtered todos <Stream>
   Stream<List<Todo>> get todos =>
-      _db.collection('todos').snapshots().map((snapshot) =>
+      db.collection('todos').snapshots().map((snapshot) =>
           snapshot.docs.map((doc) => Todo.fromJson(doc.data())).where((todo) {
-            switch (_filter) {
+            switch (filter) {
               case Filters.active:
                 return todo.completed == false;
               case Filters.completed:
@@ -35,15 +28,16 @@ class FirestoreServices extends ChangeNotifier {
           }).toList());
 
   // upsert (either insert or update the entry)
-  Future<void> upsert({required Todo todo}) async {
+  Future<void> upsert({required Todo todo, required bool isUpdate}) async {
     var options = SetOptions(merge: true);
-    _read(appLoadingStateProvider).state = true;
+    read(appLoadingStateProvider).state = true;
     try {
-      await _db.collection('todos').doc(todo.uid).set(todo.toMap(), options);
+      await db.collection('todos').doc(todo.uid).set(todo.toMap(), options);
+      _setSuccess(isUpdate ? 'Successfully updated' : 'Successfully added');
     } catch (e) {
-      error = e.toString();
+      _setError(e.toString());
     }
-    _read(appLoadingStateProvider).state = false;
+    read(appLoadingStateProvider).state = false;
   }
 
   // toggle completed
@@ -52,18 +46,24 @@ class FirestoreServices extends ChangeNotifier {
     required bool newValue,
   }) async {
     try {
-      await _db.collection('todos').doc(todoId).update({'completed': newValue});
+      await db.collection('todos').doc(todoId).update({'completed': newValue});
     } catch (e) {
-      error = e.toString();
+      _setError(e.toString());
     }
   }
 
   // remove todo
   Future<void> remove({required String todoId}) async {
     try {
-      _db.collection('todos').doc(todoId).delete();
+      db.collection('todos').doc(todoId).delete();
+      _setSuccess('Successfully deleted');
     } catch (e) {
-      error = e.toString();
+      _setError(e.toString());
     }
   }
+
+  void _setError(String _message) =>
+      read(appErrorStateNotifier.notifier).errorMessage(_message);
+  void _setSuccess(String _message) =>
+      read(appErrorStateNotifier.notifier).successMessage(_message);
 }

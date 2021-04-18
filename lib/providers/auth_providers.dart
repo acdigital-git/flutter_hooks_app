@@ -5,11 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final authProvider = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
-final authServiceProvider = ChangeNotifierProvider<AuthServices>(
-    (ref) => AuthServices(ref.watch(authProvider), ref.read));
-
-final authErrorProvider =
-    StateProvider<String?>((ref) => ref.watch(authServiceProvider).error);
+final authServiceProvider = ChangeNotifierProvider<AuthServices>((ref) =>
+    AuthServices(firebaseAuth: ref.watch(authProvider), read: ref.read));
 
 final authStateProvider = StreamProvider<User?>(
     (ref) => ref.watch(authServiceProvider).authStateChanges);
