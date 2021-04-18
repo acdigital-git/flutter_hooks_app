@@ -17,6 +17,6 @@ final todosProvider = StreamProvider<List<Todo>>(
     (ref) => ref.watch(firestoreServiceProvider).todos);
 
 final todoValidationProvider = StateProvider.autoDispose<bool>((ref) {
-  final _contentError = ref.watch(contentValidator);
-  return _contentError != null ? false : true;
+  final _contentValidator = ref.watch(contentValidator);
+  return _contentValidator.value != null ? true : false;
 });

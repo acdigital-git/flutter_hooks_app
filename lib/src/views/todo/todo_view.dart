@@ -69,7 +69,7 @@ class TodoView extends HookWidget {
         textDirection: TextDirection.rtl,
         child: FloatingActionButton.extended(
           onPressed: () => Navigator.of(context).pushNamed('/edit_todo'),
-          icon: const Icon(Icons.add_rounded),
+          icon: const Icon(Icons.playlist_add_rounded),
           label: const Text('New Todo'),
         ),
       ),

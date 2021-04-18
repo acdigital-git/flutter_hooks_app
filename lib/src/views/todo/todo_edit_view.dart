@@ -17,18 +17,20 @@ class TodoFormView extends HookWidget {
     final _content = useTextEditingController(text: item?.content ?? '');
     final _isValid = useProvider(todoValidationProvider).state;
     final _completed = useState<bool>(item?.completed ?? false);
+    final _isUpdate = useState<bool>(item != null ? true : false).value;
 
     void _saveForm() {
       context.read(firestoreServiceProvider).upsert(
           todo: Todo(
-              uid: item != null ? item!.uid : _uuid.v1(),
+              uid: item?.uid ?? _uuid.v1(),
               content: _content.text.trim(),
               completed: _completed.value));
       Navigator.pop(context);
     }
 
     return BaseWidget(
-      appBar: AppBar(title: const Text('Add todo')),
+      appBar: AppBar(
+          title: _isUpdate ? const Text('Edit todo') : const Text('New todo')),
       child: ProviderListener<StateController<String?>>(
         provider: firestoreErrorProvider,
         onChange: (context, value) {
@@ -37,21 +39,24 @@ class TodoFormView extends HookWidget {
                 .showSnackBar(SnackBar(content: Text(value.state!)));
         },
         child: Column(children: [
+          // header
           TodoEditHeader(completed: _completed),
+          // form
           ListView(
               shrinkWrap: true,
               padding: const EdgeInsets.all(16.0),
               children: [
+                // content field
                 ContentField(controller: _content),
                 const SizedBox(height: 24.0),
                 // Add or Save
                 ElevatedButton.icon(
                     onPressed: _isValid ? _saveForm : null,
                     icon: const Icon(Icons.playlist_add_rounded),
-                    label: item != null
+                    label: _isUpdate
                         ? const Text('Edit todo')
-                        : const Text('Create todo')),
-              ]),
+                        : const Text('Create todo'))
+              ])
         ]),
       ),
     );
@@ -71,26 +76,18 @@ class TodoEditHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16.0, 16.0, 4.0, 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(children: [
-            const Icon(
-              Icons.lightbulb,
-              size: 28.0,
-            ),
-            const SizedBox(width: 8.0),
-            const Text(
-              'Be creative',
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(children: [
+          const Icon(Icons.thumb_up_rounded, size: 28.0),
+          const SizedBox(width: 8.0),
+          const Text('Riverpod is nice !!',
               style:
-                  const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
-            )
-          ]),
-          Switch(
-              value: _completed.value,
-              onChanged: (value) => _completed.value = value),
-        ],
-      ),
+                  const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600))
+        ]),
+        Switch(
+            value: _completed.value,
+            onChanged: (value) => _completed.value = value),
+      ]),
     );
   }
 }

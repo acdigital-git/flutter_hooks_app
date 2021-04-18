@@ -18,7 +18,9 @@ final authUserInfoProvider =
     StateProvider<User?>((ref) => ref.watch(authServiceProvider).user);
 
 final authValidationProvider = StateProvider.autoDispose<bool>((ref) {
-  final _emailError = ref.watch(emailValidator);
-  final _passwordError = ref.watch(pwValidator);
-  return _emailError != null || _passwordError != null ? false : true;
+  final _emailValidator = ref.watch(emailValidator);
+  final _passwordValidator = ref.watch(pwValidator);
+  return _emailValidator.value != null && _passwordValidator.value != null
+      ? true
+      : false;
 });

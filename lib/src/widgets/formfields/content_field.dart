@@ -9,7 +9,7 @@ class ContentField extends HookWidget {
   final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-    final _error = useProvider(contentValidator);
+    final _validationItem = useProvider(contentValidator);
     return TextField(
         controller: controller,
         onChanged: (value) =>
@@ -19,7 +19,7 @@ class ContentField extends HookWidget {
         maxLength: 120,
         decoration: InputDecoration(
             hintText: 'Donec sollicitudin molestie malesuada.',
-            errorText: _error),
+            errorText: _validationItem.error),
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.done);
   }
