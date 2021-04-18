@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.indigo),
         cardColor: Colors.white,
         cardTheme: CardTheme(
-            margin: const EdgeInsets.all(0), clipBehavior: Clip.antiAlias),
+            margin: const EdgeInsets.all(0.0), clipBehavior: Clip.antiAlias),
         buttonTheme: const ButtonThemeData(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
         elevatedButtonTheme: ElevatedButtonThemeData(style: _buttonStyle),

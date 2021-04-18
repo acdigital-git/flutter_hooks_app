@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/models/todo.dart';
 import 'package:flutter_hooks_app/providers/firestore_providers.dart';
+import 'package:flutter_hooks_app/src/routes/routes.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 import 'package:flutter_hooks_app/src/widgets/formfields/content_field.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,7 +32,13 @@ class TodoFormView extends HookWidget {
 
     return BaseWidget(
       appBar: AppBar(
-          title: _isUpdate ? const Text('Edit todo') : const Text('New todo')),
+          title: _isUpdate ? const Text('Edit todo') : const Text('New todo'),
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.home_rounded),
+                onPressed: () =>
+                    Navigator.of(context).pushReplacementNamed(Routes.root))
+          ]),
       child: Column(children: [
         // header
         TodoEditHeader(completed: _completed),
@@ -71,15 +78,17 @@ class TodoEditHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16.0, 16.0, 4.0, 0),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Row(children: [
-          const Icon(Icons.thumb_up_alt_rounded, size: 28.0),
-          const SizedBox(width: 8.0),
-          const Text('Riverpod is nice !!',
+          const Text('Riverpod is',
               style:
-                  const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600))
+                  const TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold)),
+          const SizedBox(width: 8.0),
+          const Icon(Icons.favorite, size: 30.0, color: Colors.redAccent)
         ]),
         Row(
           children: [
-            Text('completed'),
+            const Text('completed:',
+                style: const TextStyle(
+                    fontSize: 18.0, fontWeight: FontWeight.w600)),
             Switch(
                 value: _completed.value,
                 onChanged: (value) => _completed.value = value)

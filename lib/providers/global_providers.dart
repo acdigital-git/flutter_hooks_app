@@ -1,12 +1,10 @@
 import 'package:flutter_hooks_app/models/result_item.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final appLoadingStateProvider = StateProvider<bool>((ref) => false);
-
-final appErrorStateProvider = StateProvider<ResultItem?>((ref) => null);
+final appLoadingStateProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 final appErrorStateNotifier =
-    StateNotifierProvider<AppErrorStateNotifier, ResultItem?>(
+    StateNotifierProvider.autoDispose<AppErrorStateNotifier, ResultItem?>(
         (ref) => AppErrorStateNotifier());
 
 class AppErrorStateNotifier extends StateNotifier<ResultItem?> {
