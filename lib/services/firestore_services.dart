@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks_app/models/todo.dart';
+import 'package:flutter_hooks_app/providers/firestore_providers.dart';
 import 'package:flutter_hooks_app/providers/global_providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FirestoreServices extends ChangeNotifier {
   final FirebaseFirestore _db;
   final Reader _read;
-  FirestoreServices(this._db, this._read);
+  final Filters _filter;
+  FirestoreServices(this._db, this._read, this._filter);
 
   String? _error;
 
@@ -17,10 +19,20 @@ class FirestoreServices extends ChangeNotifier {
     notifyListeners();
   }
 
-  // fetch todos <Stream>
+  // fetch filtered todos <Stream>
   Stream<List<Todo>> get todos =>
       _db.collection('todos').snapshots().map((snapshot) =>
-          snapshot.docs.map((doc) => Todo.fromJson(doc.data())).toList());
+          snapshot.docs.map((doc) => Todo.fromJson(doc.data())).where((todo) {
+            switch (_filter) {
+              case Filters.active:
+                return todo.completed == false;
+              case Filters.completed:
+                return todo.completed == true;
+              case Filters.all:
+              default:
+                return true;
+            }
+          }).toList());
 
   // upsert (either insert or update the entry)
   Future<void> upsert({required Todo todo}) async {

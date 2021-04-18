@@ -78,15 +78,20 @@ class TodoEditHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16.0, 16.0, 4.0, 0),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Row(children: [
-          const Icon(Icons.thumb_up_rounded, size: 28.0),
+          const Icon(Icons.thumb_up_alt_rounded, size: 28.0),
           const SizedBox(width: 8.0),
           const Text('Riverpod is nice !!',
               style:
                   const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600))
         ]),
-        Switch(
-            value: _completed.value,
-            onChanged: (value) => _completed.value = value),
+        Row(
+          children: [
+            Text('completed'),
+            Switch(
+                value: _completed.value,
+                onChanged: (value) => _completed.value = value)
+          ],
+        ),
       ]),
     );
   }

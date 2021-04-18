@@ -21,49 +21,45 @@ class TodoView extends HookWidget {
               onPressed: context.read(authServiceProvider).logout)
         ],
       ),
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const TodoViewHeader(),
-            const SizedBox(height: 16.0),
-            _todos.when(
-              data: (value) => value.isEmpty
-                  ? const Text('No data found...')
-                  : ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => DismissibleCard(
-                        callBack: (direction) => context
-                            .read(firestoreServiceProvider)
-                            .remove(todoId: value[index].uid),
-                        content: GestureDetector(
-                          onLongPress: () => Navigator.of(context)
-                              .pushNamed('/edit_todo', arguments: value[index]),
-                          child: CheckboxListTile(
-                              key: UniqueKey(),
-                              value: value[index].completed,
-                              title: Text(value[index].content),
-                              onChanged: (newValue) => context
-                                  .read(firestoreServiceProvider)
-                                  .toggleCompleted(
-                                      todoId: value[index].uid,
-                                      newValue: newValue!)),
-                        ),
+      child: Column(
+        children: [
+          Container(
+              padding: const EdgeInsets.fromLTRB(16, 16, 4, 0),
+              child: const TodoViewHeader()),
+          _todos.when(
+            data: (value) => value.isEmpty
+                ? const Text('No data found...')
+                : ListView.separated(
+                    padding: const EdgeInsets.all(16.0),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => DismissibleCard(
+                      callBack: (direction) => context
+                          .read(firestoreServiceProvider)
+                          .remove(todoId: value[index].uid),
+                      content: GestureDetector(
+                        onLongPress: () => Navigator.of(context)
+                            .pushNamed('/edit_todo', arguments: value[index]),
+                        child: CheckboxListTile(
+                            key: UniqueKey(),
+                            value: value[index].completed,
+                            title: Text(value[index].content),
+                            onChanged: (newValue) => context
+                                .read(firestoreServiceProvider)
+                                .toggleCompleted(
+                                    todoId: value[index].uid,
+                                    newValue: newValue!)),
                       ),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 16.0),
-                      itemCount: value.length,
                     ),
-              loading: () => Container(
-                  constraints: BoxConstraints(minHeight: 300),
-                  child:
-                      const Center(child: const CircularProgressIndicator())),
-              error: (error, stackTrace) => const Center(
-                child: const Text('Error with the web service'),
-              ),
-            )
-          ],
-        ),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16.0),
+                    itemCount: value.length,
+                  ),
+            loading: () => Container(),
+            error: (error, stackTrace) => const Center(
+              child: const Text('Error with the web service'),
+            ),
+          )
+        ],
       ),
       fab: Directionality(
         textDirection: TextDirection.rtl,
@@ -77,16 +73,42 @@ class TodoView extends HookWidget {
   }
 }
 
+class FiltersRow extends HookWidget {
+  const FiltersRow({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _filter = useProvider(todosFilterProvider).state;
+    return Row(children: [
+      const Text('all'),
+      Radio<Filters>(
+          value: Filters.all,
+          groupValue: _filter,
+          onChanged: (value) =>
+              context.read(todosFilterProvider).state = value!),
+      const Text('active'),
+      Radio<Filters>(
+          value: Filters.active,
+          groupValue: _filter,
+          onChanged: (value) =>
+              context.read(todosFilterProvider).state = value!),
+      const Text('completed'),
+      Radio<Filters>(
+          value: Filters.completed,
+          groupValue: _filter,
+          onChanged: (value) =>
+              context.read(todosFilterProvider).state = value!)
+    ]);
+  }
+}
+
 class TodoViewHeader extends HookWidget {
   const TodoViewHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _user = useProvider(authUserInfoProvider).state;
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      const Icon(Icons.toc_rounded, size: 34.0),
-      Text(_user!.email!,
-          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600))
-    ]);
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [const Icon(Icons.toc_rounded, size: 34.0), FiltersRow()]);
   }
 }
