@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks_app/providers/global_providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/////////////////////
 ///////ALERTS////////
 const _loginSuccess = 'Successfully logged in';
 const _logoutSuccess = 'Successfully logged out';

@@ -11,6 +11,7 @@ class ContentField extends HookWidget {
   Widget build(BuildContext context) {
     final _validationItem = useProvider(contentValidator);
     return TextField(
+        autofocus: true,
         controller: controller,
         onChanged: (value) =>
             context.read(contentValidator.notifier).checkTodoContent(value),
