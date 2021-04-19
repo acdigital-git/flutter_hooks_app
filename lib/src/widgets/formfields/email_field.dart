@@ -11,7 +11,6 @@ class EmailField extends HookWidget {
   Widget build(BuildContext context) {
     final _validationItem = useProvider(emailValidator);
     return TextField(
-        autofocus: true,
         controller: controller,
         onChanged: (value) =>
             context.read(emailValidator.notifier).checkEmailValid(value),

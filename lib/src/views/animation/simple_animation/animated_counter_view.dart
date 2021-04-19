@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 
-const Duration _duration = Duration(seconds: 2);
-
-class SimpleAnimationView extends StatefulWidget {
-  SimpleAnimationView({Key? key}) : super(key: key);
+class AnimatedCounterView extends StatefulWidget {
+  AnimatedCounterView({Key? key}) : super(key: key);
 
   @override
-  _SimpleAnimationViewState createState() => _SimpleAnimationViewState();
+  _AnimatedCounterViewState createState() => _AnimatedCounterViewState();
 }
 
-class _SimpleAnimationViewState extends State<SimpleAnimationView>
-    with TickerProviderStateMixin {
+class _AnimatedCounterViewState extends State<AnimatedCounterView>
+    with SingleTickerProviderStateMixin {
   int _counter = 0;
   late AnimationController _animationController;
   Animation<int> _animatedCounter = const AlwaysStoppedAnimation(0);
@@ -20,7 +17,7 @@ class _SimpleAnimationViewState extends State<SimpleAnimationView>
   void initState() {
     super.initState();
     _animationController =
-        AnimationController(duration: _duration, vsync: this);
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
   }
 
   @override
@@ -49,14 +46,14 @@ class _SimpleAnimationViewState extends State<SimpleAnimationView>
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget(
-        appBar: AppBar(title: Text('Simple Animation')),
-        child: Center(
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return Container(
+      constraints: BoxConstraints(maxWidth: 220.0),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Card(
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             IconButton(
                 icon: Icon(Icons.remove_rounded),
-                onPressed: _decrement,
+                onPressed: _counter > 0 ? _decrement : null,
                 iconSize: 40.0),
             const SizedBox(width: 8.0),
             AnimatedBuilder(
@@ -66,9 +63,11 @@ class _SimpleAnimationViewState extends State<SimpleAnimationView>
             const SizedBox(width: 8.0),
             IconButton(
                 icon: Icon(Icons.add_rounded),
-                onPressed: _increment,
+                onPressed: _counter < 300 ? _increment : null,
                 iconSize: 40.0)
-          ])
-        ])));
+          ]),
+        )
+      ]),
+    );
   }
 }

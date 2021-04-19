@@ -25,9 +25,11 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           centerTitle: true,
         ),
-        iconTheme: IconThemeData(color: Colors.indigo),
+        iconTheme: const IconThemeData(color: Colors.indigo),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         cardColor: Colors.white,
-        cardTheme: CardTheme(
+        cardTheme: const CardTheme(
             margin: const EdgeInsets.all(0.0), clipBehavior: Clip.antiAlias),
         buttonTheme: const ButtonThemeData(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),

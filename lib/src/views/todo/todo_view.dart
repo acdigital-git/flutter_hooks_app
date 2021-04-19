@@ -25,17 +25,7 @@ class TodoView extends HookWidget {
               child: const TodoViewHeader()),
           _todos.when(
               data: (value) => value.isEmpty
-                  ? Container(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Column(children: [
-                        const Icon(Icons.search_off_rounded, size: 32.0),
-                        const SizedBox(height: 16.0),
-                        const Text(
-                          'No todos found...',
-                          style: const TextStyle(
-                              fontSize: 18.0, fontWeight: FontWeight.w600),
-                        )
-                      ]))
+                  ? EmptyList()
                   : Expanded(
                       child: ListView.separated(
                           padding: const EdgeInsets.all(16.0),
@@ -61,7 +51,7 @@ class TodoView extends HookWidget {
                               const SizedBox(height: 16.0),
                           itemCount: value.length),
                     ),
-              loading: () => Container(),
+              loading: () => EmptyList(),
               error: (error, stackTrace) => const Center(
                     child: const Text('Error with the web service'),
                   ))
@@ -73,6 +63,26 @@ class TodoView extends HookWidget {
               icon: const Icon(Icons.playlist_add_rounded),
               label: const Text('New Todo'),
             )));
+  }
+}
+
+class EmptyList extends StatelessWidget {
+  const EmptyList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Column(children: [
+          const Icon(Icons.search_off_rounded, size: 32.0),
+          const SizedBox(height: 16.0),
+          const Text(
+            'No todos found...',
+            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+          )
+        ]));
   }
 }
 
