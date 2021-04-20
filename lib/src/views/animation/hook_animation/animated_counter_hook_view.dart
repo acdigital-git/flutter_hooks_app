@@ -57,7 +57,7 @@ class AnimatedCounterHookView extends HookWidget {
                         increment: _incrementCounter(_counter2),
                         decrement: _decrementCounter(_counter2)),
                     const CustomDivider(),
-                    Text('${_counterValue + _counter2Value}',
+                    Text('Total: ${_counterValue + _counter2Value}',
                         style: const TextStyle(fontSize: 32.0))
                   ]),
             ),
