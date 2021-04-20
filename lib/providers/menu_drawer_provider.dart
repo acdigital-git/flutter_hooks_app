@@ -10,7 +10,7 @@ final menuDrawerProvider = Provider.autoDispose<List<MenuItem>>((ref) => const [
         route: Routes.root,
       ),
       const MenuItem(
-        title: 'Simple Animation',
+        title: 'Simple Animations',
         icon: Icons.animation,
         route: Routes.simpleAnimation,
       ),
@@ -23,5 +23,10 @@ final menuDrawerProvider = Provider.autoDispose<List<MenuItem>>((ref) => const [
         title: 'AnimatedFab w/ Hook',
         icon: Icons.smart_button_rounded,
         route: Routes.fabHookAnimation,
+      ),
+      const MenuItem(
+        title: 'RotatingLogo w/ Hook',
+        icon: Icons.rotate_right_rounded,
+        route: Routes.rotatingLogoHookAnimation,
       )
     ]);
