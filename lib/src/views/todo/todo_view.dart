@@ -4,7 +4,7 @@ import 'package:flutter_hooks_app/providers/auth_providers.dart';
 import 'package:flutter_hooks_app/providers/firestore_providers.dart';
 import 'package:flutter_hooks_app/src/routes/routes.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
-import 'package:flutter_hooks_app/src/widgets/dismissible_card.dart';
+import 'package:flutter_hooks_app/src/widgets/layouts/dismissible_card.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TodoView extends HookWidget {

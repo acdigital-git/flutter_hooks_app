@@ -16,6 +16,11 @@ const List<MenuItem> _menuItems = [
     title: 'Simple Animation',
     icon: Icons.animation,
     route: Routes.simpleAnimation,
+  ),
+  const MenuItem(
+    title: 'Hook Animation',
+    icon: Icons.build_rounded,
+    route: Routes.hookAnimation,
   )
 ];
 

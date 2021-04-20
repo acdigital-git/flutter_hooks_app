@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks_app/models/todo.dart';
 import 'package:flutter_hooks_app/src/routes/routes.dart';
+import 'package:flutter_hooks_app/src/views/animation/hook_animation/counter_hook_animation_view.dart';
 import 'package:flutter_hooks_app/src/views/animation/simple_animation/simple_animation_view.dart';
 import 'package:flutter_hooks_app/src/views/auth_wrapper.dart';
 import 'package:flutter_hooks_app/src/views/todo/todo_edit_view.dart';
@@ -20,6 +21,8 @@ class RouteGenerator {
       // animation
       case Routes.simpleAnimation:
         return MaterialPageRoute(builder: (_) => SimpleAnimationView());
+      case Routes.hookAnimation:
+        return MaterialPageRoute(builder: (_) => CounterHookAnimationView());
       default:
         return _errorRoute();
     }

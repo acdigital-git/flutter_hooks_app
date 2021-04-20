@@ -43,7 +43,7 @@ class _AnimatedContainerViewState extends State<AnimatedContainerView> {
             child: const Text('Colors')),
         ElevatedButton(
             onPressed: () => setState(
-                () => _radius == 6.0 ? _radius += 44.0 : _radius -= 44.0),
+                () => _radius == 6.0 ? _radius += 94.0 : _radius -= 94.0),
             child: const Text('Borders')),
       ])
     ]);
