@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/models/result_item.dart';
 import 'package:flutter_hooks_app/providers/global_providers.dart';
+import 'package:flutter_hooks_app/providers/menu_drawer_provider.dart';
 import 'package:flutter_hooks_app/src/helpers/ui_helpers.dart';
-import 'package:flutter_hooks_app/src/routes/routes.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-const List<MenuItem> _menuItems = [
+/* const List<MenuItem> _menuItems = [
   const MenuItem(
     title: 'Todo App',
     icon: Icons.home_rounded,
@@ -22,7 +22,7 @@ const List<MenuItem> _menuItems = [
     icon: Icons.build_rounded,
     route: Routes.counterHookAnimation,
   )
-];
+]; */
 
 const _trailingIcon = Icon(Icons.keyboard_arrow_right_rounded);
 
@@ -41,6 +41,7 @@ class BaseWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _menuItems = useProvider(menuDrawerProvider);
     return SafeArea(
       child: Scaffold(
         appBar: appBar,
