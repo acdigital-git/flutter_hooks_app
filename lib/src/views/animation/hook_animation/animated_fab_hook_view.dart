@@ -35,6 +35,7 @@ class AnimatedFabHookView extends HookWidget {
                           ])
                       ]))),
         )),
+        fabLocation: FloatingActionButtonLocation.centerFloat,
         fab: FadeTransition(
           opacity: _animFab,
           child: ScaleTransition(

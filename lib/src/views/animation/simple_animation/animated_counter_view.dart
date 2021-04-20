@@ -86,7 +86,7 @@ class _AnimatedCounterViewState extends State<AnimatedCounterView>
             onPressed: () =>
                 Navigator.pushNamed(context, Routes.counterHookAnimation),
             icon: Icon(Icons.keyboard_arrow_right_rounded),
-            label: Text('Go to hook page'))
+            label: Text('Go to hook version'))
       ]),
     );
   }

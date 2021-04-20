@@ -32,11 +32,13 @@ class BaseWidget extends HookWidget {
       required this.appBar,
       required this.child,
       this.fab,
+      this.fabLocation,
       this.drawer})
       : super(key: key);
   final AppBar appBar;
   final Widget child;
   final Widget? fab;
+  final FloatingActionButtonLocation? fabLocation;
   final Widget? drawer;
 
   @override
@@ -80,6 +82,8 @@ class BaseWidget extends HookWidget {
                     : child,
                 child: child)),
         floatingActionButton: fab ?? null,
+        floatingActionButtonLocation:
+            fabLocation ?? FloatingActionButtonLocation.endFloat,
       ),
     );
   }

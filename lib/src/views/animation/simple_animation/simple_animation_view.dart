@@ -23,8 +23,7 @@ class SimpleAnimationView extends StatelessWidget {
                 const Text('Animated Container',
                     style: TextStyle(fontSize: 18.0)),
                 const SizedBox(height: 16.0),
-                AnimatedContainerView(),
-                const CustomDivider(),
+                AnimatedContainerView()
               ])),
         ));
   }

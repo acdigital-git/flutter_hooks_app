@@ -29,7 +29,7 @@ class AnimatedCounterHookView extends HookWidget {
     final _counterValue = useAnimation(_animCounter);
     final _counter2Value = useAnimation(_animCounter2);
 
-    // test values (min : 0, max : 500)
+    // test values (min : 0, max : 1000)
     _incrementCounter(ValueNotifier<int> counter) =>
         counter.value < _maxValue ? () => counter.value += _addValue : null;
     _decrementCounter(ValueNotifier<int> counter) =>
