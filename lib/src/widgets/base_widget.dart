@@ -20,7 +20,7 @@ const List<MenuItem> _menuItems = [
   const MenuItem(
     title: 'Hook Animation',
     icon: Icons.build_rounded,
-    route: Routes.hookAnimation,
+    route: Routes.counterHookAnimation,
   )
 ];
 

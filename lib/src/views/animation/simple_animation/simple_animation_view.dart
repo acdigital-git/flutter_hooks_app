@@ -11,19 +11,21 @@ class SimpleAnimationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseWidget(
         appBar: AppBar(title: Text('Simple Animation')),
-        child: Container(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(children: [
-              const Text('Animated Counter (Statefull)',
-                  style: TextStyle(fontSize: 18.0)),
-              const SizedBox(height: 16.0),
-              AnimatedCounterView(),
-              const CustomDivider(),
-              const Text('Animated Container',
-                  style: TextStyle(fontSize: 18.0)),
-              const SizedBox(height: 16.0),
-              AnimatedContainerView(),
-              const CustomDivider(),
-            ])));
+        child: SingleChildScrollView(
+          child: Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(children: [
+                const Text('Animated Counter (Statefull)',
+                    style: TextStyle(fontSize: 18.0)),
+                const SizedBox(height: 16.0),
+                AnimatedCounterView(),
+                const CustomDivider(),
+                const Text('Animated Container',
+                    style: TextStyle(fontSize: 18.0)),
+                const SizedBox(height: 16.0),
+                AnimatedContainerView(),
+                const CustomDivider(),
+              ])),
+        ));
   }
 }

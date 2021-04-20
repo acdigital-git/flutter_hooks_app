@@ -22,15 +22,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         scaffoldBackgroundColor: Colors.grey.shade300,
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-        ),
+        appBarTheme: const AppBarTheme(centerTitle: true),
         iconTheme: const IconThemeData(color: Colors.indigo),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         cardColor: Colors.white,
         cardTheme: const CardTheme(
-            margin: const EdgeInsets.all(0.0), clipBehavior: Clip.antiAlias),
+            elevation: 3,
+            shadowColor: Colors.indigoAccent,
+            margin: const EdgeInsets.all(0.0),
+            clipBehavior: Clip.antiAlias),
         buttonTheme: const ButtonThemeData(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
         elevatedButtonTheme: ElevatedButtonThemeData(style: _buttonStyle),
@@ -38,9 +39,8 @@ class MyApp extends StatelessWidget {
             filled: true,
             fillColor: Colors.white,
             isDense: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6.0),
-            )),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(6.0))),
       ),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: '/',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks_app/src/routes/routes.dart';
 
 class AnimatedCounterView extends StatefulWidget {
   AnimatedCounterView({Key? key}) : super(key: key);
@@ -79,20 +80,34 @@ class _AnimatedCounterViewState extends State<AnimatedCounterView>
         const SizedBox(height: 16.0),
         buildCard2(),
         const SizedBox(height: 16.0),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: AnimatedBuilder(
-              animation: _animatedCounter,
-              builder: (context, child) => AnimatedBuilder(
-                animation: _animatedCounter2,
-                builder: (context, child) => Text(
-                    '= ${_animatedCounter.value + _animatedCounter2.value}',
-                    style: TextStyle(fontSize: 40.0)),
-              ),
-            ),
-          ),
-        )
+        buildCardResult(),
+        const SizedBox(height: 16.0),
+        TextButton.icon(
+            onPressed: () =>
+                Navigator.pushNamed(context, Routes.counterHookAnimation),
+            icon: Icon(Icons.keyboard_arrow_right_rounded),
+            label: Text('Go to hook page'))
+      ]),
+    );
+  }
+
+  Card buildCard() {
+    return Card(
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        IconButton(
+            icon: Icon(Icons.remove_rounded),
+            onPressed: _counter > 0 ? _decrement : null,
+            iconSize: 40.0),
+        const SizedBox(width: 8.0),
+        AnimatedBuilder(
+            animation: _animatedCounter,
+            builder: (context, child) => Text('${_animatedCounter.value}',
+                style: TextStyle(fontSize: 40.0))),
+        const SizedBox(width: 8.0),
+        IconButton(
+            icon: Icon(Icons.add_rounded),
+            onPressed: _counter < 300 ? _increment : null,
+            iconSize: 40.0)
       ]),
     );
   }
@@ -118,24 +133,20 @@ class _AnimatedCounterViewState extends State<AnimatedCounterView>
     );
   }
 
-  Card buildCard() {
+  Card buildCardResult() {
     return Card(
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        IconButton(
-            icon: Icon(Icons.remove_rounded),
-            onPressed: _counter > 0 ? _decrement : null,
-            iconSize: 40.0),
-        const SizedBox(width: 8.0),
-        AnimatedBuilder(
-            animation: _animatedCounter,
-            builder: (context, child) => Text('${_animatedCounter.value}',
-                style: TextStyle(fontSize: 40.0))),
-        const SizedBox(width: 8.0),
-        IconButton(
-            icon: Icon(Icons.add_rounded),
-            onPressed: _counter < 300 ? _increment : null,
-            iconSize: 40.0)
-      ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: AnimatedBuilder(
+          animation: _animatedCounter,
+          builder: (context, child) => AnimatedBuilder(
+            animation: _animatedCounter2,
+            builder: (context, child) => Text(
+                '= ${_animatedCounter.value + _animatedCounter2.value}',
+                style: TextStyle(fontSize: 40.0)),
+          ),
+        ),
+      ),
     );
   }
 }
