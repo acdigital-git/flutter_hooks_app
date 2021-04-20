@@ -36,7 +36,7 @@ class AnimatedCounterHookView extends HookWidget {
         counter.value > _minValue ? () => counter.value -= _addValue : null;
 
     return BaseWidget(
-        appBar: AppBar(title: Text('Hook Animation')),
+        appBar: AppBar(title: Text('AnimatedCounter w/ Hooks')),
         child: Center(
           child: Card(
             margin: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -47,9 +47,6 @@ class AnimatedCounterHookView extends HookWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Animated Counters (With hook)',
-                        style: TextStyle(fontSize: 18.0)),
-                    const SizedBox(height: 16.0),
                     CounterRowWidget(
                         counter: _animCounter.value,
                         increment: _incrementCounter(_counter),
