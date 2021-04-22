@@ -6,18 +6,18 @@ Animation<double> useRotatingLogoListener(
     {required Duration duration,
     required Curve curveIn,
     required Curve curveOut}) {
-  final _animController = useAnimationController(duration: duration);
-  _animController.addStatusListener((status) {
+  final animationController = useAnimationController(duration: duration);
+  animationController.addStatusListener((status) {
     if (status == AnimationStatus.dismissed) {
-      _animController.forward();
+      animationController.forward();
     } else if (status == AnimationStatus.completed) {
-      _animController.reverse();
+      animationController.reverse();
     }
   });
-  if (!_animController.isAnimating) {
-    _animController.forward();
+  if (!animationController.isAnimating) {
+    animationController.forward();
   }
   final _curvedAnimation = CurvedAnimation(
-      parent: _animController, curve: curveIn, reverseCurve: curveOut);
+      parent: animationController, curve: curveIn, reverseCurve: curveOut);
   return Tween<double>(begin: 0, end: 2 * math.pi).animate(_curvedAnimation);
 }
