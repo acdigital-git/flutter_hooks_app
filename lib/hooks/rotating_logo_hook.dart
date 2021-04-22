@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-Animation<double> useRotatingLogoListener({required Duration duration}) {
-  final _animController =
-      useAnimationController(duration: duration, upperBound: 2 * math.pi);
+Animation<double> useRotatingLogoListener(
+    {required Duration duration,
+    required Curve curveIn,
+    required Curve curveOut}) {
+  final _animController = useAnimationController(duration: duration);
   _animController.addStatusListener((status) {
     if (status == AnimationStatus.dismissed) {
       _animController.forward();
@@ -15,5 +17,7 @@ Animation<double> useRotatingLogoListener({required Duration duration}) {
   if (!_animController.isAnimating) {
     _animController.forward();
   }
-  return _animController;
+  final _curvedAnimation = CurvedAnimation(
+      parent: _animController, curve: curveIn, reverseCurve: curveOut);
+  return Tween<double>(begin: 0, end: 2 * math.pi).animate(_curvedAnimation);
 }
