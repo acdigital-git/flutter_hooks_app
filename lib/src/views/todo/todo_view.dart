@@ -7,55 +7,19 @@ import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 import 'package:flutter_hooks_app/src/widgets/layouts/dismissible_card.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TodoView extends HookWidget {
+class TodoView extends StatelessWidget {
   const TodoView({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
   Widget build(BuildContext context) {
-    final _todos = useProvider(todosProvider);
+    print('** build base widget todos');
     return BaseWidget(
         appBar: AppBar(title: Text(title), actions: [
           IconButton(
               icon: const Icon(Icons.logout),
               onPressed: context.read(authServiceProvider).logout)
         ]),
-        child: Column(children: [
-          Container(
-              padding: const EdgeInsets.fromLTRB(16, 16, 4, 0),
-              child: const TodoViewHeader()),
-          _todos.when(
-              data: (value) => value.isEmpty
-                  ? EmptyList()
-                  : Expanded(
-                      child: ListView.separated(
-                          padding: const EdgeInsets.all(16.0),
-                          //shrinkWrap: true,
-                          itemBuilder: (context, index) => DismissibleCard(
-                              callBack: (_) => context
-                                  .read(firestoreServiceProvider)
-                                  .remove(todoId: value[index].uid),
-                              content: GestureDetector(
-                                  onLongPress: () => Navigator.of(context)
-                                      .pushNamed('/edit_todo',
-                                          arguments: value[index]),
-                                  child: CheckboxListTile(
-                                      key: UniqueKey(),
-                                      value: value[index].completed,
-                                      title: Text(value[index].content),
-                                      onChanged: (newValue) => context
-                                          .read(firestoreServiceProvider)
-                                          .toggleCompleted(
-                                              todoId: value[index].uid,
-                                              newValue: newValue!)))),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 16.0),
-                          itemCount: value.length),
-                    ),
-              loading: () => EmptyList(),
-              error: (error, stackTrace) => const Center(
-                    child: const Text('Error with the web service'),
-                  ))
-        ]),
+        child: ListOfTodos(),
         fab: Directionality(
             textDirection: TextDirection.rtl,
             child: FloatingActionButton.extended(
@@ -63,6 +27,55 @@ class TodoView extends HookWidget {
               icon: const Icon(Icons.playlist_add_rounded),
               label: const Text('New Todo'),
             )));
+  }
+}
+
+class ListOfTodos extends HookWidget {
+  const ListOfTodos({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _todos = useProvider(todosProvider);
+    print('** build list widget todos');
+    return Column(children: [
+      Container(
+          padding: const EdgeInsets.fromLTRB(16, 16, 4, 0),
+          child: const TodoViewHeader()),
+      _todos.when(
+          data: (value) => value.isEmpty
+              ? EmptyList()
+              : Expanded(
+                  child: ListView.separated(
+                      padding: const EdgeInsets.all(16.0),
+                      //shrinkWrap: true,
+                      itemBuilder: (context, index) => DismissibleCard(
+                          callBack: (_) => context
+                              .read(firestoreServiceProvider)
+                              .remove(todoId: value[index].uid),
+                          content: GestureDetector(
+                              onLongPress: () => Navigator.of(context)
+                                  .pushNamed('/edit_todo',
+                                      arguments: value[index]),
+                              child: CheckboxListTile(
+                                  key: UniqueKey(),
+                                  value: value[index].completed,
+                                  title: Text(value[index].content),
+                                  onChanged: (newValue) => context
+                                      .read(firestoreServiceProvider)
+                                      .toggleCompleted(
+                                          todoId: value[index].uid,
+                                          newValue: newValue!)))),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 16.0),
+                      itemCount: value.length),
+                ),
+          loading: () => EmptyList(),
+          error: (error, stackTrace) => const Center(
+                child: const Text('Error with the web service'),
+              ))
+    ]);
   }
 }
 
