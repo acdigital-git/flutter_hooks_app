@@ -13,9 +13,8 @@ class AuthWrapper extends HookWidget {
   Widget build(BuildContext context) {
     final _authState = useProvider(authStateProvider);
     return _authState.when(
-      data: (user) {
-        return user == null ? AuthView() : TodoView(title: AppGlobals.name);
-      },
+      data: (user) =>
+          user == null ? AuthView() : TodoView(title: AppGlobals.name),
       loading: () => Scaffold(
         body: Center(child: CircularProgressIndicator()),
       ),

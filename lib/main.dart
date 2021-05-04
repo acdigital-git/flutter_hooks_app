@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       title: AppGlobals.name,
       theme: AppTheme.theme,
       onGenerateRoute: AppRoutes.generateRoute,
+      // InitialRoute => AuthWrapper
       initialRoute: AppRoutes.root,
     );
   }

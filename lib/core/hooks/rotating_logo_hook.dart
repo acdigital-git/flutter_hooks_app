@@ -7,13 +7,15 @@ Animation<double> useRotatingLogoListener(
     required Curve curveIn,
     required Curve curveOut}) {
   final animationController = useAnimationController(duration: duration);
-  animationController.addStatusListener((status) {
-    if (status == AnimationStatus.dismissed) {
-      animationController.forward();
-    } else if (status == AnimationStatus.completed) {
-      animationController.reverse();
-    }
-  });
+  animationController.addStatusListener(
+    (status) {
+      if (status == AnimationStatus.dismissed) {
+        animationController.forward();
+      } else if (status == AnimationStatus.completed) {
+        animationController.reverse();
+      }
+    },
+  );
   if (!animationController.isAnimating) {
     animationController.forward();
   }

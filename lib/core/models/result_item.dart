@@ -2,7 +2,7 @@ class ResultItem {
   final bool isError;
   final String? message;
 
-  ResultItem({
+  const ResultItem({
     required this.isError,
     this.message,
   });
