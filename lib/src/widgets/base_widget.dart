@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/models/result_item.dart';
+import 'package:flutter_hooks_app/core/providers/auth_providers.dart';
 import 'package:flutter_hooks_app/core/providers/global_providers.dart';
 import 'package:flutter_hooks_app/core/providers/menu_drawer_provider.dart';
 import 'package:flutter_hooks_app/src/helpers/ui_helpers.dart';
@@ -26,54 +27,62 @@ class BaseWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _menuItems = useProvider(menuDrawerProvider);
+    final _authState = useProvider(authStateProvider);
     return SafeArea(
       child: Scaffold(
         appBar: appBar,
-        drawer: Drawer(
-            child: ListView(children: <Widget>[
-          DrawerHeader(
-              decoration: const BoxDecoration(color: Colors.indigo),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Placeholder(
-                        fallbackHeight: 48,
-                        fallbackWidth: 48,
-                        color: Colors.white,
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 32.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Text(
-                    'My Drawer',
-                    style: const TextStyle(fontSize: 26.0, color: Colors.white),
-                  ),
-                ],
-              )),
-          ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (context, index) => ListTile(
-                  title: Text(_menuItems[index].title,
-                      style: const TextStyle(fontSize: 15.0)),
-                  leading: Icon(_menuItems[index].icon),
-                  trailing: _trailingIcon,
-                  onTap: () => Navigator.of(context)
-                      .pushReplacementNamed(_menuItems[index].route)),
-              separatorBuilder: (_, __) => const Divider(thickness: 1.5),
-              itemCount: _menuItems.length)
-        ])),
+        drawer: _authState.when(
+            data: (user) => user != null
+                ? Drawer(
+                    child: ListView(children: <Widget>[
+                    DrawerHeader(
+                        decoration: const BoxDecoration(color: Colors.indigo),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Placeholder(
+                                  fallbackHeight: 48,
+                                  fallbackWidth: 48,
+                                  color: Colors.white,
+                                ),
+                                GestureDetector(
+                                  onTap: () => Navigator.pop(context),
+                                  child: const Icon(
+                                    Icons.close,
+                                    color: Colors.white,
+                                    size: 32.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Text(
+                              'My Drawer',
+                              style: const TextStyle(
+                                  fontSize: 26.0, color: Colors.white),
+                            ),
+                          ],
+                        )),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => ListTile(
+                            title: Text(_menuItems[index].title,
+                                style: const TextStyle(fontSize: 15.0)),
+                            leading: Icon(_menuItems[index].icon),
+                            trailing: _trailingIcon,
+                            onTap: () => Navigator.of(context)
+                                .pushReplacementNamed(_menuItems[index].route)),
+                        separatorBuilder: (_, __) =>
+                            const Divider(thickness: 1.5),
+                        itemCount: _menuItems.length)
+                  ]))
+                : null,
+            loading: () => null,
+            error: (error, stackTrace) => null),
         body: ProviderListener<ResultItem?>(
             provider: appErrorStateNotifier,
             onChange: (context, item) {

@@ -20,7 +20,7 @@ class AnimatedIconsView extends HookWidget {
         ]),
         child: GridView(
             children: _icons,
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3)));
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, childAspectRatio: 1.4)));
   }
 }

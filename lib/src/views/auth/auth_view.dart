@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/providers/auth_providers.dart';
 import 'package:flutter_hooks_app/core/providers/global_providers.dart';
+import 'package:flutter_hooks_app/src/constants/paths.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 import 'package:flutter_hooks_app/src/widgets/forms/email_field.dart';
 import 'package:flutter_hooks_app/src/widgets/forms/password_field.dart';
@@ -17,7 +18,7 @@ class AuthView extends HookWidget {
     final _isLoading = useProvider(appLoadingStateProvider).state;
 
     return BaseWidget(
-      appBar: AppBar(title: const Text('Flutter Hooks App')),
+      appBar: AppBar(title: const Text(AppGlobals.name)),
       child: Center(
         child: _isLoading
             ? CircularProgressIndicator()

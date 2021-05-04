@@ -12,4 +12,5 @@ const List<AnimatedIconWidget> _icons = [
   AnimatedIconWidget(iconData: AnimatedIcons.ellipsis_search),
   AnimatedIconWidget(iconData: AnimatedIcons.list_view),
   AnimatedIconWidget(iconData: AnimatedIcons.pause_play),
+  AnimatedIconWidget(iconData: AnimatedIcons.play_pause),
 ];
