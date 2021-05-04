@@ -3,6 +3,7 @@ import 'package:flutter_hooks_app/models/todo.dart';
 import 'package:flutter_hooks_app/src/routes/routes.dart';
 import 'package:flutter_hooks_app/src/views/animation/hook_animation/animated_counter_hook_view.dart';
 import 'package:flutter_hooks_app/src/views/animation/hook_animation/animated_fab_hook_view.dart';
+import 'package:flutter_hooks_app/src/views/animation/hook_animation/animated_icons_view.dart';
 import 'package:flutter_hooks_app/src/views/animation/hook_animation/rotating_logo_hook_view.dart';
 import 'package:flutter_hooks_app/src/views/animation/simple_animation/simple_animation_view.dart';
 import 'package:flutter_hooks_app/src/views/auth_wrapper.dart';
@@ -29,6 +30,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AnimatedFabHookView());
       case Routes.rotatingLogoHookAnimation:
         return MaterialPageRoute(builder: (_) => RotatingLogoHookView());
+      case Routes.animatedIcons:
+        return MaterialPageRoute(builder: (_) => AnimatedIconsView());
       default:
         return _errorRoute();
     }

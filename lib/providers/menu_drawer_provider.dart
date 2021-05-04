@@ -28,5 +28,10 @@ final menuDrawerProvider = Provider.autoDispose<List<MenuItem>>((ref) => const [
         title: 'RotatingLogo w/ Hook',
         icon: Icons.rotate_right_rounded,
         route: Routes.rotatingLogoHookAnimation,
+      ),
+      const MenuItem(
+        title: 'AnimatedIcons w/ Hook',
+        icon: Icons.play_arrow_rounded,
+        route: Routes.animatedIcons,
       )
     ]);

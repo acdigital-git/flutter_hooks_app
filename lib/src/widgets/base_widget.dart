@@ -6,24 +6,6 @@ import 'package:flutter_hooks_app/providers/menu_drawer_provider.dart';
 import 'package:flutter_hooks_app/src/helpers/ui_helpers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/* const List<MenuItem> _menuItems = [
-  const MenuItem(
-    title: 'Todo App',
-    icon: Icons.home_rounded,
-    route: Routes.root,
-  ),
-  const MenuItem(
-    title: 'Simple Animation',
-    icon: Icons.animation,
-    route: Routes.simpleAnimation,
-  ),
-  const MenuItem(
-    title: 'Hook Animation',
-    icon: Icons.build_rounded,
-    route: Routes.counterHookAnimation,
-  )
-]; */
-
 const _trailingIcon = Icon(Icons.keyboard_arrow_right_rounded);
 
 class BaseWidget extends HookWidget {
