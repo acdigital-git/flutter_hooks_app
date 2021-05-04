@@ -1,5 +1,5 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter_hooks_app/models/form_validation_item.dart';
+import 'package:flutter_hooks_app/core/models/form_validation_item.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 //// VALIDATORS ////

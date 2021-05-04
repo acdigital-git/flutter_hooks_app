@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_hooks_app/hooks/animated_int_hook.dart';
+import 'package:flutter_hooks_app/core/hooks/animated_int_hook.dart';
 import 'package:flutter_hooks_app/src/helpers/ui_helpers.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 import 'package:flutter_hooks_app/src/widgets/layouts/counter_row_widget.dart';
