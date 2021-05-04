@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/providers/auth_providers.dart';
 import 'package:flutter_hooks_app/core/providers/firestore_providers.dart';
-import 'package:flutter_hooks_app/src/routes/routes.dart';
+import 'package:flutter_hooks_app/src/constants/app_routes.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 import 'package:flutter_hooks_app/src/widgets/layouts/dismissible_card.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -23,7 +23,8 @@ class TodoView extends StatelessWidget {
         fab: Directionality(
             textDirection: TextDirection.rtl,
             child: FloatingActionButton.extended(
-              onPressed: () => Navigator.of(context).pushNamed(Routes.editTodo),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(AppRoutes.editTodo),
               icon: const Icon(Icons.playlist_add_rounded),
               label: const Text('New Todo'),
             )));

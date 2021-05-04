@@ -1,5 +1,5 @@
 import 'package:flutter_hooks_app/core/models/menu_item.dart';
-import 'package:flutter_hooks_app/src/routes/routes.dart';
+import 'package:flutter_hooks_app/src/constants/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,31 +7,31 @@ final menuDrawerProvider = Provider.autoDispose<List<MenuItem>>((ref) => const [
       const MenuItem(
         title: 'Todo App',
         icon: Icons.home_rounded,
-        route: Routes.root,
+        route: AppRoutes.root,
       ),
       const MenuItem(
         title: 'Simple Animations',
         icon: Icons.animation,
-        route: Routes.simpleAnimation,
+        route: AppRoutes.simpleAnimation,
       ),
       const MenuItem(
         title: 'AnimatedCounter w/ Hook',
         icon: Icons.calculate_rounded,
-        route: Routes.counterHookAnimation,
+        route: AppRoutes.counterHookAnimation,
       ),
       const MenuItem(
         title: 'AnimatedFab w/ Hook',
         icon: Icons.smart_button_rounded,
-        route: Routes.fabHookAnimation,
+        route: AppRoutes.fabHookAnimation,
       ),
       const MenuItem(
         title: 'RotatingLogo w/ Hook',
         icon: Icons.rotate_right_rounded,
-        route: Routes.rotatingLogoHookAnimation,
+        route: AppRoutes.rotatingLogoHookAnimation,
       ),
       const MenuItem(
         title: 'AnimatedIcons w/ Hook',
         icon: Icons.play_arrow_rounded,
-        route: Routes.animatedIcons,
+        route: AppRoutes.animatedIcons,
       )
     ]);

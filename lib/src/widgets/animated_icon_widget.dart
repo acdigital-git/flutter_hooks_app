@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_hooks_app/src/constants/app_globals.dart';
 
-const _duration = Duration(milliseconds: 750);
+const _duration = AppGlobals.animDuration;
 
 class AnimatedIconWidget extends HookWidget {
   const AnimatedIconWidget({

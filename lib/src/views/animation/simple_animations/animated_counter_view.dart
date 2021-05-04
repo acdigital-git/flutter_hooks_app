@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/src/routes/routes.dart';
+import 'package:flutter_hooks_app/src/constants/app_routes.dart';
 
 class AnimatedCounterView extends StatefulWidget {
   AnimatedCounterView({Key? key}) : super(key: key);
@@ -84,7 +84,7 @@ class _AnimatedCounterViewState extends State<AnimatedCounterView>
         const SizedBox(height: 16.0),
         TextButton.icon(
             onPressed: () =>
-                Navigator.pushNamed(context, Routes.counterHookAnimation),
+                Navigator.pushNamed(context, AppRoutes.counterHookAnimation),
             icon: Icon(Icons.keyboard_arrow_right_rounded),
             label: Text('Go to hook version'))
       ]),

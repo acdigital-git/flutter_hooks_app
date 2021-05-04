@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/src/helpers/ui_helpers.dart';
-import 'package:flutter_hooks_app/src/routes/routes.dart';
-import 'package:flutter_hooks_app/src/views/animation/simple_animation/animated_container_view.dart';
-import 'package:flutter_hooks_app/src/views/animation/simple_animation/animated_counter_view.dart';
+import 'package:flutter_hooks_app/src/constants/app_routes.dart';
+import 'package:flutter_hooks_app/src/constants/app_utils.dart';
+import 'package:flutter_hooks_app/src/views/animation/simple_animations/animated_container_view.dart';
+import 'package:flutter_hooks_app/src/views/animation/simple_animations/animated_counter_view.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 
 class SimpleAnimationView extends StatelessWidget {
@@ -17,7 +17,7 @@ class SimpleAnimationView extends StatelessWidget {
             IconButton(
                 icon: const Icon(Icons.home_rounded),
                 onPressed: () =>
-                    Navigator.of(context).pushReplacementNamed(Routes.root))
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.root))
           ],
         ),
         child: SingleChildScrollView(
@@ -28,7 +28,7 @@ class SimpleAnimationView extends StatelessWidget {
                     style: TextStyle(fontSize: 18.0)),
                 const SizedBox(height: 16.0),
                 AnimatedCounterView(),
-                const CustomDivider(),
+                AppUtils.divider32,
                 const Text('Animated Container',
                     style: TextStyle(fontSize: 18.0)),
                 const SizedBox(height: 16.0),

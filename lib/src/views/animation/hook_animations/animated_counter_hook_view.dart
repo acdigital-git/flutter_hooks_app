@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/hooks/animated_int_hook.dart';
-import 'package:flutter_hooks_app/src/helpers/ui_helpers.dart';
+import 'package:flutter_hooks_app/src/constants/app_globals.dart';
+import 'package:flutter_hooks_app/src/constants/app_utils.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 import 'package:flutter_hooks_app/src/widgets/layouts/counter_row_widget.dart';
 
-const _duration = Duration(milliseconds: 750);
+const _duration = AppGlobals.animDuration;
 const _minValue = 0;
 const _maxValue = 1000;
 const _addValue = 100;
@@ -51,12 +52,12 @@ class AnimatedCounterHookView extends HookWidget {
                         counter: _animCounter.value,
                         increment: _incrementCounter(_counter),
                         decrement: _decrementCounter(_counter)),
-                    const CustomDivider(),
+                    AppUtils.divider32,
                     CounterRowWidget(
                         counter: _animCounter2.value,
                         increment: _incrementCounter(_counter2),
                         decrement: _decrementCounter(_counter2)),
-                    const CustomDivider(),
+                    AppUtils.divider32,
                     Text('Total: ${_counterValue + _counter2Value}',
                         style: const TextStyle(fontSize: 36.0))
                   ]),

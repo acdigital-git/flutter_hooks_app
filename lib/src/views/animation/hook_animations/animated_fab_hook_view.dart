@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/hooks/scroll_controller_listener_hook.dart';
-import 'package:flutter_hooks_app/src/routes/routes.dart';
+import 'package:flutter_hooks_app/src/constants/app_globals.dart';
+import 'package:flutter_hooks_app/src/constants/app_routes.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 
-const _duration = Duration(milliseconds: 500);
+const _duration = AppGlobals.animDuration;
 
 class AnimatedFabHookView extends HookWidget {
   const AnimatedFabHookView({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class AnimatedFabHookView extends HookWidget {
           IconButton(
               icon: const Icon(Icons.home_rounded),
               onPressed: () =>
-                  Navigator.of(context).pushReplacementNamed(Routes.root))
+                  Navigator.of(context).pushReplacementNamed(AppRoutes.root))
         ]),
         child: Center(
           child: Card(
