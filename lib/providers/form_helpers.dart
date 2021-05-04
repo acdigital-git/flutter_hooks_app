@@ -1,19 +1,17 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter_hooks_app/models/validation_item.dart';
+import 'package:flutter_hooks_app/models/form_validation_item.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 //// VALIDATORS ////
-final pwValidator =
-    StateNotifierProvider.autoDispose<FormValidationNotifier, ValidationItem>(
-        (ref) => FormValidationNotifier());
+final pwValidator = StateNotifierProvider.autoDispose<FormValidationNotifier,
+    FormValidationItem>((ref) => FormValidationNotifier());
 
-final emailValidator =
-    StateNotifierProvider.autoDispose<FormValidationNotifier, ValidationItem>(
-        (ref) => FormValidationNotifier());
+final emailValidator = StateNotifierProvider.autoDispose<FormValidationNotifier,
+    FormValidationItem>((ref) => FormValidationNotifier());
 
-final contentValidator =
-    StateNotifierProvider.autoDispose<FormValidationNotifier, ValidationItem>(
-        (ref) => FormValidationNotifier());
+final contentValidator = StateNotifierProvider.autoDispose<
+    FormValidationNotifier,
+    FormValidationItem>((ref) => FormValidationNotifier());
 
 ///// PwField //////
 final pwVisibilityHelper = StateNotifierProvider<PasswordToggleNotifier, bool>(
@@ -31,37 +29,37 @@ const _invalidEmail = 'Invalid email format';
 const _pwTooShort = 'Password is too short';
 const _todoTooShort = 'todo is too short';
 
-class FormValidationNotifier extends StateNotifier<ValidationItem> {
-  FormValidationNotifier({ValidationItem? item})
-      : super(item ?? ValidationItem(error: null, value: null));
+class FormValidationNotifier extends StateNotifier<FormValidationItem> {
+  FormValidationNotifier({FormValidationItem? item})
+      : super(item ?? FormValidationItem(error: null, value: null));
 
   void checkEmailValid(String? _email) {
     if (_email == null || _email.isEmpty) {
-      state = ValidationItem(error: _emptyField);
+      state = FormValidationItem(error: _emptyField);
     } else if (!EmailValidator.validate(_email)) {
-      state = ValidationItem(error: _invalidEmail);
+      state = FormValidationItem(error: _invalidEmail);
     } else {
-      state = ValidationItem(value: _email);
+      state = FormValidationItem(value: _email);
     }
   }
 
   void checkPwValid(String? _password) {
     if (_password == null || _password.isEmpty) {
-      state = ValidationItem(error: _emptyField);
+      state = FormValidationItem(error: _emptyField);
     } else if (_password.length < 8) {
-      state = ValidationItem(error: _pwTooShort);
+      state = FormValidationItem(error: _pwTooShort);
     } else {
-      state = ValidationItem(value: _password);
+      state = FormValidationItem(value: _password);
     }
   }
 
   void checkTodoContent(String? _todo) {
     if (_todo == null || _todo.isEmpty) {
-      state = ValidationItem(error: _emptyField);
+      state = FormValidationItem(error: _emptyField);
     } else if (_todo.length < 15) {
-      state = ValidationItem(error: _todoTooShort);
+      state = FormValidationItem(error: _todoTooShort);
     } else {
-      state = ValidationItem(value: _todo);
+      state = FormValidationItem(value: _todo);
     }
   }
 }

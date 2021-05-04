@@ -1,8 +1,8 @@
-class ValidationItem {
+class FormValidationItem {
   final String? error;
   final String? value;
 
-  const ValidationItem({
+  const FormValidationItem({
     this.error,
     this.value,
   });
