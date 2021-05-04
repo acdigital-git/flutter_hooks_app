@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_hooks_app/hooks/rotating_logo_hook.dart';
+import 'package:flutter_hooks_app/core/hooks/rotating_logo_hook.dart';
 import 'package:flutter_hooks_app/src/routes/routes.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 

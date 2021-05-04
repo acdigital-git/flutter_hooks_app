@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/models/todo.dart';
-import 'package:flutter_hooks_app/providers/firestore_providers.dart';
-import 'package:flutter_hooks_app/providers/global_providers.dart';
+import 'package:flutter_hooks_app/core/models/todo.dart';
+import 'package:flutter_hooks_app/core/providers/firestore_providers.dart';
+import 'package:flutter_hooks_app/core/providers/global_providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FirestoreServices extends ChangeNotifier {

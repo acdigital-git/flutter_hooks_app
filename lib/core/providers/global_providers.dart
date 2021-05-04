@@ -1,4 +1,4 @@
-import 'package:flutter_hooks_app/models/result_item.dart';
+import 'package:flutter_hooks_app/core/models/result_item.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final appLoadingStateProvider = StateProvider.autoDispose<bool>((ref) => false);

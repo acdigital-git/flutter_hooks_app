@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/models/result_item.dart';
+import 'package:flutter_hooks_app/core/models/result_item.dart';
 
 class UiHelpers {
   static Future<void> showSnackBar(

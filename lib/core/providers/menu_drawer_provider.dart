@@ -1,4 +1,4 @@
-import 'package:flutter_hooks_app/models/menu_item.dart';
+import 'package:flutter_hooks_app/core/models/menu_item.dart';
 import 'package:flutter_hooks_app/src/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

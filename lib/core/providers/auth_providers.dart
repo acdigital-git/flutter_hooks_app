@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_hooks_app/providers/form_helpers.dart';
-import 'package:flutter_hooks_app/services/auth_services.dart';
+import 'package:flutter_hooks_app/core/providers/form_helpers.dart';
+import 'package:flutter_hooks_app/core/services/auth_services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final authProvider = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);

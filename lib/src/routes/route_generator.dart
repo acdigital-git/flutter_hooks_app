@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/models/todo.dart';
+import 'package:flutter_hooks_app/core/models/todo.dart';
 import 'package:flutter_hooks_app/src/routes/routes.dart';
 import 'package:flutter_hooks_app/src/views/animation/hook_animation/animated_counter_hook_view.dart';
 import 'package:flutter_hooks_app/src/views/animation/hook_animation/animated_fab_hook_view.dart';

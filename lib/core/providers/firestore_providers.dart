@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_hooks_app/models/todo.dart';
-import 'package:flutter_hooks_app/providers/form_helpers.dart';
-import 'package:flutter_hooks_app/services/firestore_services.dart';
+import 'package:flutter_hooks_app/core/models/todo.dart';
+import 'package:flutter_hooks_app/core/providers/form_helpers.dart';
+import 'package:flutter_hooks_app/core/services/firestore_services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum Filters { all, active, completed }
