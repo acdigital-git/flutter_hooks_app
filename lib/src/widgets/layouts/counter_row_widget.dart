@@ -17,11 +17,14 @@ class CounterRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       IconButton(
-          icon: const Icon(Icons.remove_rounded, size: 32),
+          icon: const Icon(Icons.remove_rounded, size: 36.0),
           onPressed: _decrement),
-      Text(_counter.toString(), style: const TextStyle(fontSize: 32.0)),
+      const SizedBox(width: 8.0),
+      Text(_counter.toString(), style: const TextStyle(fontSize: 36.0)),
+      const SizedBox(width: 8.0),
       IconButton(
-          icon: const Icon(Icons.add_rounded, size: 32), onPressed: _increment)
+          icon: const Icon(Icons.add_rounded, size: 36.0),
+          onPressed: _increment)
     ]);
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_hooks_app/models/result_item.dart';
 import 'package:flutter_hooks_app/providers/global_providers.dart';
 import 'package:flutter_hooks_app/providers/menu_drawer_provider.dart';
 import 'package:flutter_hooks_app/src/helpers/ui_helpers.dart';
+import 'package:flutter_hooks_app/src/routes/routes.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 const _trailingIcon = Icon(Icons.keyboard_arrow_right_rounded);
@@ -31,10 +32,37 @@ class BaseWidget extends HookWidget {
         appBar: appBar,
         drawer: Drawer(
             child: ListView(children: <Widget>[
-          const DrawerHeader(
+          DrawerHeader(
               decoration: const BoxDecoration(color: Colors.indigo),
-              child: const Text('Drawer menu',
-                  style: const TextStyle(fontSize: 26.0, color: Colors.white))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Placeholder(
+                        fallbackHeight: 48,
+                        fallbackWidth: 48,
+                        color: Colors.white,
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 32.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Text(
+                    'My Drawer',
+                    style: const TextStyle(fontSize: 26.0, color: Colors.white),
+                  ),
+                ],
+              )),
           ListView.separated(
               shrinkWrap: true,
               itemBuilder: (context, index) => ListTile(
@@ -69,16 +97,4 @@ class BaseWidget extends HookWidget {
       ),
     );
   }
-}
-
-class MenuItem {
-  final String title;
-  final IconData icon;
-  final String route;
-
-  const MenuItem({
-    required this.title,
-    required this.icon,
-    required this.route,
-  });
 }
