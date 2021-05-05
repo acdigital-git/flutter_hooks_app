@@ -15,28 +15,32 @@ class TodoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseWidget(
-        appBar: AppBar(title: Text(title), actions: [
+      appBar: AppBar(
+        title: Text(title),
+        actions: [
           IconButton(
               icon: const Icon(Icons.logout),
               onPressed: context.read(authServiceProvider).logout)
-        ]),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              DrawerHeaderWidget(),
-              DrawerContentWidget(),
-            ],
-          ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeaderWidget(),
+            DrawerContentWidget(),
+          ],
         ),
-        child: ListOfTodos(),
-        fab: Directionality(
-            textDirection: TextDirection.rtl,
-            child: FloatingActionButton.extended(
-              onPressed: () =>
-                  Navigator.of(context).pushNamed(AppRoutes.editTodo),
-              icon: const Icon(Icons.playlist_add_rounded),
-              label: const Text('New Todo'),
-            )));
+      ),
+      child: ListOfTodos(),
+      fab: Directionality(
+        textDirection: TextDirection.rtl,
+        child: FloatingActionButton.extended(
+          onPressed: () => Navigator.of(context).pushNamed(AppRoutes.editTodo),
+          icon: const Icon(Icons.playlist_add_rounded),
+          label: const Text('New Todo'),
+        ),
+      ),
+    );
   }
 }
 
@@ -48,38 +52,43 @@ class ListOfTodos extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _todos = useProvider(todosProvider);
-    print('** build list widget todos');
     return Column(children: [
       Container(
-          padding: const EdgeInsets.fromLTRB(16, 16, 4, 0),
-          child: const TodoViewHeader()),
+        padding: const EdgeInsets.fromLTRB(16, 16, 4, 0),
+        child: const TodoViewHeader(),
+      ),
       _todos.when(
           data: (value) => value.isEmpty
               ? EmptyList()
               : Expanded(
                   child: ListView.separated(
-                      padding: const EdgeInsets.all(16.0),
-                      //shrinkWrap: true,
-                      itemBuilder: (context, index) => DismissibleCard(
-                          callBack: (_) => context
+                    padding: const EdgeInsets.all(16.0),
+                    //shrinkWrap: true,
+                    itemBuilder: (context, index) => DismissibleCard(
+                      callBack: (_) => context
+                          .read(firestoreServiceProvider)
+                          .remove(todoId: value[index].uid),
+                      content: GestureDetector(
+                        onLongPress: () => Navigator.of(context).pushNamed(
+                          '/edit_todo',
+                          arguments: value[index],
+                        ),
+                        child: CheckboxListTile(
+                          key: ValueKey(index),
+                          value: value[index].completed,
+                          title: Text(value[index].content),
+                          onChanged: (newValue) => context
                               .read(firestoreServiceProvider)
-                              .remove(todoId: value[index].uid),
-                          content: GestureDetector(
-                              onLongPress: () => Navigator.of(context)
-                                  .pushNamed('/edit_todo',
-                                      arguments: value[index]),
-                              child: CheckboxListTile(
-                                  key: ValueKey(index),
-                                  value: value[index].completed,
-                                  title: Text(value[index].content),
-                                  onChanged: (newValue) => context
-                                      .read(firestoreServiceProvider)
-                                      .toggleCompleted(
-                                          todoId: value[index].uid,
-                                          newValue: newValue!)))),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 16.0),
-                      itemCount: value.length),
+                              .toggleCompleted(
+                                  todoId: value[index].uid,
+                                  newValue: newValue!),
+                        ),
+                      ),
+                    ),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16.0),
+                    itemCount: value.length,
+                  ),
                 ),
           loading: () => EmptyList(),
           error: (error, stackTrace) => const Center(

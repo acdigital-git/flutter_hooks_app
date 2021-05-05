@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks_app/core/providers/auth_providers.dart';
+import 'package:flutter_hooks_app/src/constants/app_globals.dart';
 import 'package:flutter_hooks_app/src/constants/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -40,7 +41,7 @@ class DrawerHeaderWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'My Drawer',
+                AppGlobals.name,
                 style: const TextStyle(fontSize: 26.0, color: Colors.white),
               ),
               GestureDetector(

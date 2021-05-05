@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/hooks/rotating_logo_hook.dart';
+import 'package:flutter_hooks_app/src/constants/app_globals.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 
-const _duration = Duration(milliseconds: 2500);
+const _duration = AppGlobals.rotationDuration;
 
 class RotatingLogoHookView extends HookWidget {
   const RotatingLogoHookView({Key? key}) : super(key: key);
