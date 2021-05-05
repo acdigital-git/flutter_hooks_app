@@ -4,14 +4,19 @@ import 'package:flutter_hooks_app/src/views/animation/hook_animations/animated_c
 import 'package:flutter_hooks_app/src/views/animation/hook_animations/animated_fab_hook_view.dart';
 import 'package:flutter_hooks_app/src/views/animation/hook_animations/animated_icons_view.dart';
 import 'package:flutter_hooks_app/src/views/animation/hook_animations/rotating_logo_hook_view.dart';
-import 'package:flutter_hooks_app/src/views/animation/simple_animations/simple_animation_view.dart';
+import 'package:flutter_hooks_app/src/views/animation/hook_animations_view.dart';
+import 'package:flutter_hooks_app/src/views/animation/simple_animation_view.dart';
 import 'package:flutter_hooks_app/src/views/auth_wrapper.dart';
 import 'package:flutter_hooks_app/src/views/todo/todo_edit_view.dart';
 
 class AppRoutes {
   static const root = '/';
+
+  /// TODOS (HOMEPAGE) ///
   static const editTodo = '/edit_todo';
+  ////// ANIMATIONS //////
   static const simpleAnimation = '/simple_animation';
+  static const hookAnimations = '/hook_animations';
   static const counterHookAnimation = '/counter_hook_animation';
   static const fabHookAnimation = '/fab_hook_animation';
   static const rotatingLogoHookAnimation = '/rotating_logo_hook_animation';
@@ -23,14 +28,17 @@ class AppRoutes {
       // home
       case root:
         return MaterialPageRoute(builder: (_) => AuthWrapper());
-      // Todo
+      // todo
       case editTodo:
         return args is Todo
             ? MaterialPageRoute(builder: (_) => TodoFormView(item: args))
             : MaterialPageRoute(builder: (_) => TodoFormView());
-      // animation
+      // simple animations
       case simpleAnimation:
         return MaterialPageRoute(builder: (_) => SimpleAnimationView());
+      // hook animations
+      case hookAnimations:
+        return MaterialPageRoute(builder: (_) => HookAnimationsView());
       case counterHookAnimation:
         return MaterialPageRoute(builder: (_) => AnimatedCounterHookView());
       case fabHookAnimation:

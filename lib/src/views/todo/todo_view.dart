@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/providers/auth_providers.dart';
-import 'package:flutter_hooks_app/core/providers/firestore_providers.dart';
+import 'package:flutter_hooks_app/core/providers/todos_providers.dart';
 import 'package:flutter_hooks_app/src/constants/app_routes.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 import 'package:flutter_hooks_app/src/widgets/layouts/dismissible_card.dart';
+import 'package:flutter_hooks_app/src/widgets/scaffold/drawer_content_widget.dart';
+import 'package:flutter_hooks_app/src/widgets/scaffold/drawer_header_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TodoView extends StatelessWidget {
@@ -12,13 +14,20 @@ class TodoView extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    print('** build base widget todos');
     return BaseWidget(
         appBar: AppBar(title: Text(title), actions: [
           IconButton(
               icon: const Icon(Icons.logout),
               onPressed: context.read(authServiceProvider).logout)
         ]),
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeaderWidget(),
+              DrawerContentWidget(),
+            ],
+          ),
+        ),
         child: ListOfTodos(),
         fab: Directionality(
             textDirection: TextDirection.rtl,
@@ -60,7 +69,7 @@ class ListOfTodos extends HookWidget {
                                   .pushNamed('/edit_todo',
                                       arguments: value[index]),
                               child: CheckboxListTile(
-                                  key: UniqueKey(),
+                                  key: ValueKey(index),
                                   value: value[index].completed,
                                   title: Text(value[index].content),
                                   onChanged: (newValue) => context

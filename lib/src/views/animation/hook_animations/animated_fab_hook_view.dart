@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/hooks/scroll_controller_listener_hook.dart';
 import 'package:flutter_hooks_app/src/constants/app_globals.dart';
-import 'package:flutter_hooks_app/src/constants/app_routes.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 
 const _duration = AppGlobals.animDuration;
@@ -19,12 +18,7 @@ class AnimatedFabHookView extends HookWidget {
         useScrollControllerWithListener(animationController: _animFab);
 
     return BaseWidget(
-        appBar: AppBar(title: Text('AnimatedFab w/ Hooks'), actions: [
-          IconButton(
-              icon: const Icon(Icons.home_rounded),
-              onPressed: () =>
-                  Navigator.of(context).pushReplacementNamed(AppRoutes.root))
-        ]),
+        appBar: AppBar(title: Text('AnimatedFab w/ Hooks')),
         child: Center(
           child: Card(
             child: SingleChildScrollView(

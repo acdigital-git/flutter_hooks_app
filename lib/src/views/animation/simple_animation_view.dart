@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/src/constants/app_routes.dart';
 import 'package:flutter_hooks_app/src/constants/app_utils.dart';
 import 'package:flutter_hooks_app/src/views/animation/simple_animations/animated_container_view.dart';
 import 'package:flutter_hooks_app/src/views/animation/simple_animations/animated_counter_view.dart';
@@ -11,15 +10,7 @@ class SimpleAnimationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseWidget(
-        appBar: AppBar(
-          title: Text('Simple Animation'),
-          actions: [
-            IconButton(
-                icon: const Icon(Icons.home_rounded),
-                onPressed: () =>
-                    Navigator.of(context).pushReplacementNamed(AppRoutes.root))
-          ],
-        ),
+        appBar: AppBar(title: const Text('Simple Animations')),
         child: SingleChildScrollView(
           child: Container(
               padding: const EdgeInsets.all(16.0),

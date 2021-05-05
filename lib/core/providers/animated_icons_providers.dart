@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks_app/src/widgets/animated_icon_widget.dart';
+import 'package:flutter_hooks_app/src/widgets/layouts/animated_icon_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final animatedIcons = Provider<List<AnimatedIconWidget>>(
+final animatedIconsList = Provider<List<AnimatedIconWidget>>(
   (ref) => const [
     AnimatedIconWidget(iconData: AnimatedIcons.add_event),
     AnimatedIconWidget(iconData: AnimatedIcons.menu_arrow),

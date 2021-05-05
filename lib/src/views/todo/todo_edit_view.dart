@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_hooks_app/core/models/todo.dart';
-import 'package:flutter_hooks_app/core/providers/firestore_providers.dart';
+import 'package:flutter_hooks_app/core/providers/todos_providers.dart';
 import 'package:flutter_hooks_app/src/constants/app_routes.dart';
 import 'package:flutter_hooks_app/src/widgets/base_widget.dart';
 import 'package:flutter_hooks_app/src/widgets/forms/content_field.dart';

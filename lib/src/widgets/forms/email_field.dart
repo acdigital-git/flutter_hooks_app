@@ -12,6 +12,7 @@ class EmailField extends HookWidget {
     final _validationItem = useProvider(emailValidator);
     return TextField(
         controller: controller,
+        autofocus: true,
         onChanged: (value) =>
             context.read(emailValidator.notifier).checkEmailValid(value),
         decoration: InputDecoration(
