@@ -1,6 +1,6 @@
 # flutter_hooks_app
 
-A simple Flutter architecture using Hooks & Riverpod as a state management solution.
+A simple Flutter architecture using Hooks for less boilerplate & Riverpod as a state management solution.
 
 - [Riverpod: Provider, but different](https://riverpod.dev/)
 - [Flutter_hooks: A Flutter implementation of React hooks](https://pub.dev/packages/flutter_hooks/)
