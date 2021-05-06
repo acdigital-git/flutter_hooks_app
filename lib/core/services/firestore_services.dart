@@ -27,6 +27,24 @@ class FirestoreServices extends ChangeNotifier {
             }
           }).toList());
 
+  Stream<List<Todo>> get allTodos =>
+      db.collection('todos').snapshots().map((snapshot) =>
+          snapshot.docs.map((doc) => Todo.fromJson(doc.data())).toList());
+
+  Stream<List<Todo>> get completedTodos => db
+      .collection('todos')
+      .where('completed', isEqualTo: true)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => Todo.fromJson(doc.data())).toList());
+
+  Stream<List<Todo>> get activeTodos => db
+      .collection('todos')
+      .where('completed', isEqualTo: false)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => Todo.fromJson(doc.data())).toList());
+
   // upsert (either insert or update the entry)
   Future<void> upsert({required Todo todo, required bool isUpdate}) async {
     var options = SetOptions(merge: true);

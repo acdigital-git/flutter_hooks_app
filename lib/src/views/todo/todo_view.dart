@@ -14,6 +14,7 @@ class TodoView extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    print('**TodoView**');
     return BaseWidget(
       appBar: AppBar(
         title: Text(title),
@@ -51,6 +52,7 @@ class ListOfTodos extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('**ListOfTodos**');
     final _todos = useProvider(todosProvider);
     return Column(children: [
       Container(
@@ -59,7 +61,7 @@ class ListOfTodos extends HookWidget {
       ),
       _todos.when(
           data: (value) => value.isEmpty
-              ? EmptyList()
+              ? EmptyList(isLoading: false)
               : Expanded(
                   child: ListView.separated(
                     padding: const EdgeInsets.all(16.0),
@@ -70,7 +72,7 @@ class ListOfTodos extends HookWidget {
                           .remove(todoId: value[index].uid),
                       content: GestureDetector(
                         onLongPress: () => Navigator.of(context).pushNamed(
-                          '/edit_todo',
+                          AppRoutes.editTodo,
                           arguments: value[index],
                         ),
                         child: CheckboxListTile(
@@ -90,7 +92,7 @@ class ListOfTodos extends HookWidget {
                     itemCount: value.length,
                   ),
                 ),
-          loading: () => EmptyList(),
+          loading: () => EmptyList(isLoading: true),
           error: (error, stackTrace) => const Center(
                 child: const Text('Error with the web service'),
               ))
@@ -101,17 +103,21 @@ class ListOfTodos extends HookWidget {
 class EmptyList extends StatelessWidget {
   const EmptyList({
     Key? key,
+    required this.isLoading,
   }) : super(key: key);
+
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
+    print('**EmptyList**');
     return Container(
         padding: const EdgeInsets.only(top: 16.0),
         child: Column(children: [
           const Icon(Icons.search_off_rounded, size: 32.0),
           const SizedBox(height: 16.0),
-          const Text(
-            'No todos found...',
+          Text(
+            isLoading ? 'Loading...' : 'No todos found...',
             style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
           )
         ]));
@@ -123,6 +129,7 @@ class TodoViewHeader extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('**TodoViewHeader**');
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       const Text('Todos',
           style: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold)),
@@ -136,6 +143,7 @@ class FiltersRow extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('**FiltersRow**');
     final _filter = useProvider(todosFilterProvider).state;
     return Row(children: [
       const Text('all'),

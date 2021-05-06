@@ -8,18 +8,33 @@ enum Filters { all, active, completed }
 
 final todosFilterProvider = StateProvider<Filters>((ref) => Filters.all);
 
-final firestoreProvider =
-    Provider<FirebaseFirestore>((ref) => FirebaseFirestore.instance);
+final firestoreProvider = Provider.autoDispose<FirebaseFirestore>(
+    (ref) => FirebaseFirestore.instance);
 
 final firestoreServiceProvider =
-    ChangeNotifierProvider<FirestoreServices>((ref) => FirestoreServices(
-          db: ref.watch(firestoreProvider),
-          read: ref.read,
-          filter: ref.watch(todosFilterProvider).state,
-        ));
+    ChangeNotifierProvider.autoDispose<FirestoreServices>(
+        (ref) => FirestoreServices(
+              db: ref.watch(firestoreProvider),
+              read: ref.read,
+              filter: ref.watch(todosFilterProvider).state,
+            ));
 
-final todosProvider = StreamProvider<List<Todo>>(
+final todosProvider = StreamProvider.autoDispose<List<Todo>>(
     (ref) => ref.watch(firestoreServiceProvider).todos);
+
+final filteredTodos = StreamProvider.autoDispose<List<Todo>>((ref) {
+  final db = ref.watch(firestoreServiceProvider);
+  final currentFilter = ref.watch(todosFilterProvider).state;
+  switch (currentFilter) {
+    case Filters.completed:
+      return db.completedTodos;
+    case Filters.active:
+      return db.activeTodos;
+    case Filters.all:
+    default:
+      return db.allTodos;
+  }
+});
 
 final todoValidationProvider = StateProvider.autoDispose<bool>((ref) {
   final _contentValidator = ref.watch(contentValidator);
