@@ -26,12 +26,7 @@ dependencies:
     sdk: flutter
   hooks_riverpod: ^0.14.0+1
   flutter_hooks: ^0.16.0
-  firebase_core: "^1.0.3"
-  firebase_auth: "^1.1.0"
-  cloud_firestore: "^1.0.5"
-  email_validator: ^2.0.1
-  uuid: ^3.0.4
-
+  animate_icons: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,8 +48,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/images/
+  # assets:
+  #  - assets/images/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
